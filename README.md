@@ -4,7 +4,10 @@
 --------
 
 ## Integrantes
-- 
+|   Apellidos y Nombres   |           Email               |
+|-------------------------|-------------------------------|
+| Morales Panitz, Alexander| alexander.morales@utec.edu.pe|
+-
 - 
 - 
 
