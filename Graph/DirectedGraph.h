@@ -44,33 +44,30 @@ public:
 };
 
 template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::insertVertex(string id, TV vertex) {
-    // If id exists in map
-    if (vertexes.find(id)) return false;
-    // Create new pointer of vertex
-    Vertex < TV, TE > *new_vertex = new Vertex <TV, TE>();
-    // Assign data
-    new_vertex->data = vertex;
-    // Insert data to map
-    vertexes.insert(id, new_vertex);
+bool DirectedGraph<TV, TE>::insertVertex(string id, TV data) {
+    // VERIFICAR SI EL VERTICE EXISTE
+    if (this->vertexes.find(id) == this->vertexes.end()) return false;
+    // CREAR VERTICE
+    this->vertexes.insert({id, new Vertex<TV, TE>{data}});
     this->V++;
     return true;
 }
 
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w) {
-    Vertex < TV, TE > *v1 = vertexes.find(id1);
-    Vertex < TV, TE > *v2 = vertexes.find(id2);
-    auto edge = new Edge<TV, TE>();
-    edge->vertexes[0] = v1;
-    edge->vertexes[1] = v2;
-    edge->weight = w;
-    v1->edges.insert(edge);
-    delete v1;
-    delete v2;
-    delete edge;
+    // VERIFICAR QUE LOS VERTICES EXISTAN 
+    if (this->vertexes.find(id1) == this->vertexes.end() || this->vertexes.find(id2) == this->vertexes.end())
+        return false;
+    // VERIFICAR QUE LA ARISTA NO EXISTA
+    for (auto it: this->vertexes.at(id1)->edges) {
+        if (it.vertexes[0] == this->vertexes[id1] && it.vertexes[1] == this->vertexes[id2]) {
+            return false;
+        }
+    }
+    // AGREGAR LA ARISTA
+    this->vertexes.at(id1)->edges.push_back(new Edge<TV, TE>{{this->vertexes.at(id1), this->vertexes.at(id2)}, w});
     this->E++;
-    return false;
+    return true;
 }
 
 template<typename TV, typename TE>
