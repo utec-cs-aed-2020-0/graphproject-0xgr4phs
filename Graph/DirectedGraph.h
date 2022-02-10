@@ -46,7 +46,7 @@ public:
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::insertVertex(string id, TV data) {
     // VERIFICAR SI EL VERTICE EXISTE
-    if (this->vertexes.find(id) == this->vertexes.end()) return false;
+    if (!this->findById(id)) return false;
     // CREAR VERTICE
     this->vertexes.insert({id, new Vertex<TV, TE>{data}});
     this->V++;
@@ -55,8 +55,8 @@ bool DirectedGraph<TV, TE>::insertVertex(string id, TV data) {
 
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w) {
-    // VERIFICAR QUE LOS VERTICES EXISTAN 
-    if (this->vertexes.find(id1) == this->vertexes.end() || this->vertexes.find(id2) == this->vertexes.end())
+    // VERIFICAR QUE LOS VERTICES EXISTAN
+    if (this->findById(id1) || !this->findById(id2))
         return false;
     // VERIFICAR QUE LA ARISTA NO EXISTA
     for (auto it: this->vertexes.at(id1)->edges) {
@@ -73,7 +73,7 @@ bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w) {
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::deleteVertex(string id) {
     // BUSCAR SI EXISTE EL NODO
-    if (this->vertexes.find(id) == this->vertexes.end()) return false;
+    if (!this->findById(id)) return false;
     // ELIMINAR ARISTAS QUE INVOLUCREN AL NODO
     for (auto it_vertexes = this->vertexes.begin(); it_vertexes != this->vertexes.end(); ++it_vertexes) {
         for (auto it_edges = it_vertexes->second->edges.begin(); it_edges != it_vertexes->second->edges.end();) {
@@ -96,7 +96,7 @@ bool DirectedGraph<TV, TE>::deleteVertex(string id) {
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::deleteEdge(string id1, string id2) {
     // BUSCAR SI EXISTE EL NODO
-    if (this->vertexes.find(id1) == this->vertexes.end()) return false;
+    if (!this->findById(id1) || !this->findById(id2)) return false;
     // BUSCAR SI ARISTA EXISTE
     for (auto it_edge = this->vertexes.at(id1).edges.begin();
          it_edge != this->vertexes.at(id1).edges.end(); it_edge++) {
@@ -113,8 +113,8 @@ bool DirectedGraph<TV, TE>::deleteEdge(string id1, string id2) {
 
 template<typename TV, typename TE>
 TE &DirectedGraph<TV, TE>::operator()(string id1, string id2) {
-    // VERIFICAR QUE EXISTAN LOS VERTICES
-    if (this->vertexes.find(id1) == this->vertexes.end()) throw ("No se encontro el vertice");
+    // VERIFICAR QUE EXISTAN LOS VERTIFCES
+    if (!this->findById(id1) || !this->findById(id2)) throw ("No se encontro el vertice");
     // ENCONTRAR LA ARISTA QUE COINCIDA
     for (auto it_edge: this->vertexes.at(id1)->edges) {
         // RETORNAR SI COINCIDEN
