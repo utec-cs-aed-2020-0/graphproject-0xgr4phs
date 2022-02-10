@@ -106,26 +106,32 @@ bool DirectedGraph<TV, TE>::deleteEdge(string id1, string id2) {
 }
 
 template<typename TV, typename TE>
-TE &DirectedGraph<TV, TE>::operator()(string start, string end) {
-    Vertex<TV,TE>* v1 = vertexes.find(start);
-    Vertex<TV,TE>* v2 = vertexes.find(end);
-    list<Edge<TV,TE>> list = v1->edges;
-    for(auto &edge : list)
-    {
-        if (edge == v2)
-            return edge.weight;
+TE &DirectedGraph<TV, TE>::operator()(string id1, string id2) {
+    // VERIFICAR QUE EXISTAN LOS VERTICES
+    if (this->vertexes.find(id1) == this->vertexes.end()) throw ("No se encontro el vertice");
+    // ENCONTRAR LA ARISTA QUE COINCIDA
+    for (auto it_edge: this->vertexes.at(id1)->edges) {
+        // RETORNAR SI COINCIDEN
+        if (it_edge->vertexes[1] == this->vertexes.at(id2)) {
+            return it_edge->weight;
+        }
     }
+    throw ("No existe la arista");
 }
 
 template<typename TV, typename TE>
 float DirectedGraph<TV, TE>::density() {
-
-    return 0;
+    double e_abs = 0;
+    // HALLAR TODAS LAS ARISTAS
+    for (auto vert: this->vertexes) {
+        e_abs += vert->edges.size();
+    }
+    return 2 * e_abs / (this->vertexes.size() * (this->vertexes.size() - 1));
 }
 
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::isDense(float threshold) {
-    return false;
+    return this->density() >= threshold;
 }
 
 template<typename TV, typename TE>
