@@ -72,15 +72,24 @@ bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w) {
 
 template<typename TV, typename TE>
 bool DirectedGraph<TV, TE>::deleteVertex(string id) {
-    if (vertexes.find(id) == 0) return false;
-    Vertex < TV, TE > *v = vertexes.find(id);
-    std::list<Edge<TV, TE> *> list = v->edges;
-    for (auto &val: list) {
-        delete val;
+    // BUSCAR SI EXISTE EL NODO
+    if (this->vertexes.find(id) == this->vertexes.end()) return false;
+    // ELIMINAR ARISTAS QUE INVOLUCREN AL NODO
+    for (auto it_vertexes = this->vertexes.begin(); it_vertexes != this->vertexes.end(); ++it_vertexes) {
+        for (auto it_edges = it_vertexes->second->edges.begin(); it_edges != it_vertexes->second->edges.end();) {
+            if ((*it_edges)->vertexes[0] == this->vertexes.at(id) ||
+                (*it_edges)->vertexes[1] == this->vertexes.at(id)) {
+                delete *it_edges;
+                it_vertexes->second->edges.erase(it_edges++);
+            } else {
+                it_edges++;
+            }
+        }
     }
-    delete v->edges;
-    delete v;
-    this->E--;
+    // ELLIMINAR NODO
+    delete this->vertexes.at(id);
+    this->vertexes.erase(id);
+    this->V--;
     return true;
 }
 
