@@ -20,7 +20,7 @@ public:
 
     bool deleteVertex(string id) override;
 
-    bool deleteEdge(string id) override;
+    bool deleteEdge(string id1, string id2) override;
 
     TE &operator()(string start, string end) override;
 
@@ -88,8 +88,20 @@ bool DirectedGraph<TV, TE>::deleteVertex(string id) {
 }
 
 template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::deleteEdge(string id) {
-
+bool DirectedGraph<TV, TE>::deleteEdge(string id1, string id2) {
+    // BUSCAR SI EXISTE EL NODO
+    if (this->vertexes.find(id1) == this->vertexes.end()) return false;
+    // BUSCAR SI ARISTA EXISTE
+    for (auto it_edge = this->vertexes.at(id1).edges.begin();
+         it_edge != this->vertexes.at(id1).edges.end(); it_edge++) {
+        // ELIMINAR ARISTA
+        if ((*it_edge)->vertexes[1] == this->vertexes.at(id2)) {
+            delete *it_edge;
+            this->vertexes.at(id1)->edges.erase(it_edge);
+            this->E--;
+            return true;
+        }
+    }
     return false;
 }
 
