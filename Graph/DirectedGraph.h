@@ -170,8 +170,8 @@ void DirectedGraph<TV, TE>::displayVertex(string id) {
 }
 
 template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::findById(string id) {
-    return false;
+bool DirectedGraph<TV, TE>::findById(string id){
+    return this->vertexes.find(id) != this->vertexes.end();
 }
 
 template<typename TV, typename TE>
