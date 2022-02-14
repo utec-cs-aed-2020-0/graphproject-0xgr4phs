@@ -89,7 +89,8 @@ UnDirectedGraph<TV,TE> dijkstra(UnDirectedGraph<TV,TE> & g, string start_node){
     }
 
     for(auto it = g.vertexes[m.nodo]->edges.begin(); it != g.vertexes[m.nodo]->edges.end(); ++it){
-      auto v2 = (*it)->vertexes[0]->id == m.nodo ? (*it)->vertexes[1] : (*it)->vertexes[0];
+      /* auto v2 = (*it)->vertexes[0]->id == m.nodo ? (*it)->vertexes[1] : (*it)->vertexes[0]; */
+      auto v2 = (*it)->vertexes[1];
       if(visitados.find(v2->id) == visitados.end() && distancias[v2->id] > (m.peso +(*it)->weight)){
 
 	heap.remove(distance_pair<TE>{v2->id,distancias[v2->id]});

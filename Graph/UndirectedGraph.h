@@ -64,13 +64,13 @@ class UnDirectedGraph : public Graph<TV, TE>{
     auto v2 = this->vertexes[id2];
 
     for(auto it = v1->edges.begin(); it != v1->edges.end();++it){
-      if((*it)->vertexes[0] == v1 && (*it)->vertexes[1] == v2 ||
-	  (*it)->vertexes[1] == v1 && (*it)->vertexes[0] == v2 ) return false;
+      if((*it)->vertexes[1] == v2) return false;
     }
 
     auto e = new Edge<TV,TE>{{v1,v2},w};
+    auto e2 = new Edge<TV,TE>{{v2,v1},w};
     v1->edges.push_front(e);
-    v2->edges.push_front(e);
+    v2->edges.push_front(e2);
 
     ++E;
     return true;
@@ -105,19 +105,16 @@ class UnDirectedGraph : public Graph<TV, TE>{
 
 
     for(auto it = inicio->edges.begin();it!= inicio->edges.end();++it){
-      if((*it)->vertexes[0] == inicio && (*it)->vertexes[1] == llegada ||
-	  (*it)->vertexes[1] == inicio && (*it)->vertexes[0] == llegada
-	){
+      if((*it)->vertexes[1] == llegada){
 	inicio->edges.erase(it);
+	delete *it;
 	break;
       }
 
     }
     for(auto it = llegada->edges.begin();it!= llegada->edges.end();++it){
       //cout<<(*it)->vertexes[0]->id<<" "<<(*it)->vertexes[1]->id<<endl;
-      if((*it)->vertexes[0] == inicio && (*it)->vertexes[1] == llegada ||
-	  (*it)->vertexes[1] == inicio && (*it)->vertexes[0] == llegada
-	){
+      if((*it)->vertexes[1] == inicio){
 	llegada->edges.erase(it);
 	--E;
 	delete *it;
@@ -138,9 +135,8 @@ class UnDirectedGraph : public Graph<TV, TE>{
 
 
     for(auto it = inicio->edges.begin();it!= inicio->edges.end();++it){
-      if((*it)->vertexes[0] == inicio && (*it)->vertexes[1] == llegada ||
-	  (*it)->vertexes[1] == inicio && (*it)->vertexes[0] == llegada
-	) return (*it)->weight;
+      if((*it)->vertexes[1] == llegada) 
+	return (*it)->weight;
 
     }
 
@@ -168,14 +164,10 @@ class UnDirectedGraph : public Graph<TV, TE>{
       ayuda.pop();
 
       for(auto it = this->vertexes[actual]->edges.begin();it!= this->vertexes[actual]->edges.end();++it){
-	auto v1 = (*it)->vertexes[0]->id;
-	auto v2 = (*it)->vertexes[1]->id;
-	if(v1 == actual && visitados.find(v2) == visitados.end()){
-	  ayuda.push(v2);
-	  visitados.insert(v2);
-	}else if(v2 == actual && visitados.find(v1) == visitados.end()){
-	  ayuda.push(v1);
-	  visitados.insert(v1);
+	auto v = (*it)->vertexes[1]->id;
+	if(visitados.find(v) == visitados.end()){
+	  ayuda.push(v);
+	  visitados.insert(v);
 	}
 
       }
@@ -183,11 +175,7 @@ class UnDirectedGraph : public Graph<TV, TE>{
 
     }
 
-
     return visitados.size() == V;
-
-
-
 
   }
 
@@ -222,8 +210,6 @@ class UnDirectedGraph : public Graph<TV, TE>{
   }
 
   bool findById(string id) override{
-
-
     return this->vertexes.find(id) != this->vertexes.end();
   }
 

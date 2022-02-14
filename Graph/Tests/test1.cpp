@@ -34,6 +34,17 @@ int main(){
 
 
 
+  dg.deleteEdge("1","3");
+  dg.deleteEdge("5","3");
+
+
+  cout<<endl;
+
+
+  dg.display();
+
+
+
   /* dg.insertVertex("A",1); */
   /* dg.insertVertex("B",2); */
   /* dg.insertVertex("C",3); */
