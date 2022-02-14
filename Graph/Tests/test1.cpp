@@ -7,33 +7,31 @@ using namespace std;
 
 
 int main(){
-  DirectedGraph<int,int> dg;
+  UnDirectedGraph<int,int> dg;
 
 
-  /* dg.insertVertex("1",1); */
-  /* dg.insertVertex("2",2); */
-  /* dg.insertVertex("3",3); */
-  /* dg.insertVertex("4",4); */
-  /* dg.insertVertex("5",5); */
+  dg.insertVertex("1",1);
+  dg.insertVertex("2",2);
+  dg.insertVertex("3",3);
+  dg.insertVertex("4",4);
+  dg.insertVertex("5",5);
 
-  /* dg.createEdge("3","1",1); */
-  /* dg.createEdge("3","4",1); */
-  /* dg.createEdge("3","5",1); */
-  /* dg.createEdge("1","2",1); */
-  /* dg.createEdge("1","3",1); */
-  /* dg.createEdge("2","3",1); */
-  /* dg.createEdge("4","5",1); */
-  /* dg.createEdge("5","4",1); */
-  /* dg.createEdge("5","2",1); */
-  /* dg.createEdge("5","1",1); */
+  dg.createEdge("3","1",1);
+  dg.createEdge("3","4",1);
+  dg.createEdge("3","5",1);
+  dg.createEdge("1","2",1);
+  dg.createEdge("1","3",1);
+  dg.createEdge("2","3",1);
+  dg.createEdge("4","5",1);
+  dg.createEdge("5","4",1);
+  dg.createEdge("5","2",1);
+  dg.createEdge("5","1",1);
 
 
+  
 
-  /* dg.deleteEdge("4","5"); */
+  dg.display();
 
-  /* dg.display(); */
-
-  /* cout<<dg.isStronglyConnected(); */
 
 
   /* dg.insertVertex("A",1); */
