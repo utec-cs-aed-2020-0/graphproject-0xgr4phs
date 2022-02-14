@@ -3,161 +3,134 @@
 
 #include "graph.h"
 
-template<typename TV, typename TE>
-class DirectedGraph : public Graph<TV, TE> {
+template <typename TV, typename TE>
+class DirectedGraph : public Graph<TV, TE>
+{
 private:
     std::unordered_map<string, Vertex<TV, TE> *> vertexes;
     int E{};
     int V{};
+
 public:
-    DirectedGraph(const unordered_map<string, Vertex < TV, TE> *
+    DirectedGraph() = default;
 
-    > & vertexes);
+    Vertex<TV,TE> & getVertex(string id) override {
 
-    bool insertVertex(string id, TV vertex) override;
+    };
+    DirectedGraph(const unordered_map<string, Vertex<TV, TE> *
 
-    bool createEdge(string id1, string id2, TE w) override;
+                                      > &vertexes) : vertexes(vertexes);
 
-    bool deleteVertex(string id) override;
+    bool insertVertex(string id, TV vertex) override
+    {
+        if (findById(id))
+            return false;
+        Vertex<TV, TE> *new_vertex = new Vertex<TV, TE>(vertex);
+        this->vertexes[id] = new_vertex;
+        V++;
+        return true;
+    };
 
-    bool deleteEdge(string id) override;
+    bool createEdge(string id1, string id2, TE w) override
+    {
+        if (!findById(id1) || !findById(id2))
+            return false;
 
-    TE &operator()(string start, string end) override;
+        Vertex<TV, TE> *val1 = this->vertexes[id1];
+        Vertex<TV, TE> *val2 = this->vertexes[id2];
 
-    float density() override;
+        Edge<TV, TE> *val1Edge = new Edge<TV, TE>(w);
 
-    bool isDense(float threshold) override;
+        val1Edge->vertexes[0] = val1;
+        val1Edge->vertexes[1] = val2;
+        val1->edges.push_front(val1Edge);
 
-    bool isConnected() override;
+        return true;
+    };
 
-    bool isStronglyConnected() throw() override;
+    bool deleteVertex(string id) override{
+        Vertex<TV,TE>* vertex = this->vertexes[id];
+         cout << id << ": ";
+         for(auto &edge: vertex->edges)
+         {
+             cout << edge->weight << " ";
+         }
+         cout << endl;
+    };
 
-    bool empty() override;
+    bool deleteEdge(string start, string end) override{
+        Vertex<TV,TE>* startEdge = this->vertexes[start];
+        Vertex<TV,TE>* endEdge = this->vertexes[end];
+        Edge<TV,TE>* temp_edge;
+        for(Edge<TV,TE>* edge : startEdge->edges) {
+            if (edge->vertexes[1] == endEdge)
+            {
+                temp_edge = edge;
+            }
+        }
+    };
+
+    TE &operator()(string start, string end) override{
+        Vertex<TV,TE>* vertex = this->vertexes[start];
+        Vertex<TV,TE>* endEdge = this->vertexes[end];
+        TE *value;
+        for(Edge<TV,TE>* &edge : vertex->edges)
+        {
+            if(edge->vertexes[1] == endEdge)
+            {
+                value = &edge->weight;
+                break;
+            }
+        }
+        //TE *value = new TE;
+        return (*value);
+    };
+
+    float density() override
+    {
+        return E / V * (V - 1);
+    };
+
+    bool isDense(float threshold) override
+    {
+        return density() > threshold;
+    };
+
+    bool isConnected() override {
+        // TODO: 
+    };
+
+    bool isStronglyConnected() throw() override {
+        // TODO:
+    };
+
+    bool empty() override
+    {
+        return (this->V == 0);
+    };
 
     void clear() override;
 
-    void displayVertex(string id) override;
+    void displayVertex(string id) override
+    {
+        Vertex<TV, TE> *vertex = this->vertexes[id];
+        cout << id << ": ";
+        for (auto &edge : vertex->edges)
+        {
+            cout << edge->weight << " ";
+        }
+        cout << endl;
+    };
 
     bool findById(string id) override;
 
-    void display() override;
+    void display() override
+    {
+        for (auto &val : this->vertexes)
+        {
+            displayVertex(val.first);
+        }
+        cout << endl;
+    };
 };
-
-template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::insertVertex(string id, TV vertex) {
-    // If id exists in map
-    if (vertexes.find(id)) return false;
-    // Create new pointer of vertex
-    Vertex < TV, TE > *new_vertex = new Vertex <TV, TE>();
-    // Assign data
-    new_vertex->data = vertex;
-    // Insert data to map
-    vertexes.insert(id, new_vertex);
-    this->V++;
-    return true;
-}
-
-template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w) {
-    Vertex < TV, TE > *v1 = vertexes.find(id1);
-    Vertex < TV, TE > *v2 = vertexes.find(id2);
-    auto edge = new Edge<TV, TE>();
-    edge->vertexes[0] = v1;
-    edge->vertexes[1] = v2;
-    edge->weight = w;
-    v1->edges.insert(edge);
-    delete v1;
-    delete v2;
-    delete edge;
-    this->E++;
-    return false;
-}
-
-template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::deleteVertex(string id) {
-    if (vertexes.find(id) == 0) return false;
-    Vertex < TV, TE > *v = vertexes.find(id);
-    std::list<Edge<TV, TE> *> list = v->edges;
-    for (auto &val: list) {
-        delete val;
-    }
-    delete v->edges;
-    delete v;
-    this->E--;
-    return true;
-}
-
-template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::deleteEdge(string id) {
-
-    return false;
-}
-
-template<typename TV, typename TE>
-TE &DirectedGraph<TV, TE>::operator()(string start, string end) {
-    Vertex<TV,TE>* v1 = vertexes.find(start);
-    Vertex<TV,TE>* v2 = vertexes.find(end);
-    list<Edge<TV,TE>> list = v1->edges;
-    for(auto &edge : list)
-    {
-        if (edge == v2)
-            return edge.weight;
-    }
-}
-
-template<typename TV, typename TE>
-float DirectedGraph<TV, TE>::density() {
-
-    return 0;
-}
-
-template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::isDense(float threshold) {
-    return false;
-}
-
-template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::isConnected() {
-
-    return false;
-}
-
-template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::isStronglyConnected() throw() {
-    return false;
-}
-
-template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::empty() {
-    return (V == 0);
-}
-
-template<typename TV, typename TE>
-void DirectedGraph<TV, TE>::clear() {
-    for(auto &vertex : vertexes)
-    {
-        delete vertex.second;
-    }
-}
-
-template<typename TV, typename TE>
-void DirectedGraph<TV, TE>::displayVertex(string id) {
-
-}
-
-template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::findById(string id) {
-    return false;
-}
-
-template<typename TV, typename TE>
-void DirectedGraph<TV, TE>::display() {
-
-}
-
-template<typename TV, typename TE>
-DirectedGraph<TV, TE>::DirectedGraph(const unordered_map<string, Vertex<TV, TE> *> &vertexes) {
-
-}
-
 #endif
