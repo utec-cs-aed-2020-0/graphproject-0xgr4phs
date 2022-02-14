@@ -27,4 +27,5 @@ string DFS(Graph<TV,TE> graph, string startId)
     }
     
     delete root;
+}
 #endif // DFS_H
