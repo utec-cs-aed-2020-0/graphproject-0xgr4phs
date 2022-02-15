@@ -10,9 +10,7 @@ private:
     int E{};
     int V{};
 public:
-    DirectedGraph(const unordered_map<string, Vertex < TV, TE> *
-
-    > & vertexes);
+    DirectedGraph(const unordered_map<string, Vertex<TV, TE>*> &vertexes);
 
     bool insertVertex(string id, TV vertex) override;
 
