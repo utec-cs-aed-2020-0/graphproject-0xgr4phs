@@ -10,13 +10,8 @@
 
 using namespace std;
 
-/**
- * Funcion para comparar aristas con respecto al peso
- */
-template<typename TV, typename TE>
-bool compEdge(Edge<TV, TE>*a, Edge<TV, TE>*b){
-    return (a->weight<b->weight);
-}
+
+
 
 /**
  * Algoritmo Kruskal que retorna un grafo (DIRIGIDO) con el arbol de minima expansion
@@ -27,22 +22,21 @@ bool compEdge(Edge<TV, TE>*a, Edge<TV, TE>*b){
  * @return grafo que representa el arbol de minima expansion
  */
 template<typename TV, typename TE>
-DirectedGraph<TV, TE> kruskal(const DirectedGraph<TV, TE>& grafo){
+DirectedGraph<TV, TE> kruskal(DirectedGraph<TV, TE> grafo){
     DirectedGraph<TV, TE> retorno;
-    DisjointSetGrafo gSet(grafo);
+    DisjointSetGrafoDirigido gSet(grafo);
     vector<Edge<TV,TE>*> aristas(grafo.E);
     int i = 0;
-    for(const pair<string,Vertex<TV, TE>*>& vertice: grafo.vertexes){
-        for(const Edge<TV, TE>*& arista: vertice.second->edges){
-            aristas[i++] = arista;
+    for(auto vertice = grafo.vertexes.begin(); vertice != grafo.vertexes.end(); vertice++){
+        for(auto ari = vertice->second->edges.begin(); ari != vertice->second->edges.end(); ari++){
+            aristas[i] = *ari;
+            i++;
         }
-        retorno.insertVertex(vertice.first, vertice.second->data);
+        retorno.insertVertex(vertice->first, vertice->second->data);
     }
-    sort(aristas.begin(), aristas.end(), compEdge);
+    sort(aristas.begin(), aristas.end(), [](Edge<TV, TE>* a, Edge<TV, TE>* b){return a->weight<b->weight;});
 
-    for (i = 0;  i<grafo.E ; i++) {
-        //aristas[i]->vertexes[0]
-        //aristas[i]->vertexes[1]
+    for (i = 0;  i<aristas.size() ; i++) {
         if(gSet.Union(aristas[i]->vertexes[0]->id, aristas[i]->vertexes[1]->id)){
             retorno.createEdge(aristas[i]->vertexes[0]->id, aristas[i]->vertexes[1]->id, aristas[i]->weight);
         }
@@ -61,22 +55,21 @@ DirectedGraph<TV, TE> kruskal(const DirectedGraph<TV, TE>& grafo){
  * @return grafo que representa el arbol de minima expansion
  */
 template<typename TV, typename TE>
-UnDirectedGraph<TV, TE> kruskal(const UnDirectedGraph<TV, TE>& grafo){
+UnDirectedGraph<TV, TE> kruskal(UnDirectedGraph<TV, TE> grafo){
     UnDirectedGraph<TV, TE> retorno;
-    DisjointSetGrafo gSet(grafo);
+    DisjointSetGrafoNoDirigido gSet(grafo);
     vector<Edge<TV,TE>*> aristas(grafo.E);
     int i = 0;
-    for(const pair<string,Vertex<TV, TE>*>& vertice: grafo.vertexes){
-        for(const Edge<TV, TE>*& arista: vertice.second->edges){
-            aristas[i++] = arista;
+    for(auto vertice = grafo.vertexes.begin(); vertice != grafo.vertexes.end(); vertice++){
+        for(auto ari = vertice->second->edges.begin(); ari != vertice->second->edges.end(); ari++){
+            aristas[i] = *ari;
+            i++;
         }
-        retorno.insertVertex(vertice.first, vertice.second->data);
+        retorno.insertVertex(vertice->first, vertice->second->data);
     }
-    sort(aristas.begin(), aristas.end(), compEdge);
+    sort(aristas.begin(), aristas.end(), [](Edge<TV, TE>* a, Edge<TV, TE>* b){return a->weight<b->weight;});
 
-    for (i = 0;  i<grafo.E ; i++) {
-        //aristas[i]->vertexes[0]
-        //aristas[i]->vertexes[1]
+    for (i = 0;  i<aristas.size() ; i++) {
         if(gSet.Union(aristas[i]->vertexes[0]->id, aristas[i]->vertexes[1]->id)){
             retorno.createEdge(aristas[i]->vertexes[0]->id, aristas[i]->vertexes[1]->id, aristas[i]->weight);
         }

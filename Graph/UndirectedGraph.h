@@ -30,12 +30,13 @@ template<typename TV,typename TE>
 matrix_square_pair<TE> floyd_warshall(UnDirectedGraph<TV,TE> & g);
 
 template<typename TV, typename TE>
-UnDirectedGraph<TV, TE> bellman_ford(const UnDirectedGraph<TV, TE> &grafo, const string &nodoInicio);
+UnDirectedGraph<TV, TE> bellman_ford(UnDirectedGraph<TV, TE> grafo, const string &nodoInicio);
 template<typename TV,typename TE>
-UnDirectedGraph<TV, TE> kruskal(const UnDirectedGraph<TV, TE> &grafo);
-class DisjointSetGrafo;
+UnDirectedGraph<TV, TE> kruskal(UnDirectedGraph<TV, TE> grafo);
+class DisjointSetGrafoDirigido;
+class DisjointSetGrafoNoDirigido;
 template<typename TV, typename TE>
-UnDirectedGraph<TV, TE> prim(const UnDirectedGraph<TV, TE>& grafo, string inicio);
+UnDirectedGraph<TV, TE> prim(UnDirectedGraph<TV, TE> grafo, string inicio);
 
 
 
@@ -51,10 +52,14 @@ class UnDirectedGraph : public Graph<TV, TE>{
   template<typename T,typename E>
     friend matrix_square_pair<E> floyd_warshall(UnDirectedGraph<T,E> & g);
 
-    friend UnDirectedGraph<TV, TE> bellman_ford(const UnDirectedGraph<TV, TE> &grafo, const string &nodoInicio);
-    friend UnDirectedGraph<TV, TE> kruskal(const UnDirectedGraph<TV, TE> &grafo);
-    friend class DisjointSetGrafo;
-    friend UnDirectedGraph<TV, TE> prim(const UnDirectedGraph<TV, TE>& grafo, string inicio);
+    template<typename TVf,typename TEf>
+    friend UnDirectedGraph<TVf, TEf> bellman_ford(UnDirectedGraph<TVf, TEf> grafo, const string &nodoInicio);
+    template<typename TVf,typename TEf>
+    friend UnDirectedGraph<TVf, TEf> kruskal(UnDirectedGraph<TVf, TEf> grafo);
+    friend class DisjointSetGrafoDirigido;
+    friend class DisjointSetGrafoNoDirigido;
+    template<typename TVf,typename TEf>
+    friend UnDirectedGraph<TVf, TEf> prim(UnDirectedGraph<TVf, TEf> grafo, string inicio);
 
   private:
   int E{};

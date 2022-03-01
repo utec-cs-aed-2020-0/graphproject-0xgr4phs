@@ -23,21 +23,24 @@ using namespace std;
  * @return Un grafo arbol con solo aquellos vertices que generan las menores distancias
  */
 template<typename TV, typename TE>
-DirectedGraph<TV, TE> bellman_ford(const DirectedGraph<TV, TE> &grafo, const string &nodoInicio){
+DirectedGraph<TV, TE> bellman_ford( DirectedGraph<TV, TE> grafo, const string &nodoInicio){
     DirectedGraph<TV,TE> retorno;
 
-    unordered_map<string, pair<int, string>> distanciaPadre;
-    for(const pair<string, Vertex<TV, TE>*>& vertice: grafo.vertexes){
+    unordered_map<string, pair<TE, string>> distanciaPadre;
+    //for(const pair<string, Vertex<TV, TE>*>& vertice: grafo.vertexes){
+    for(auto vertice: grafo.vertexes){
         if(vertice.first == nodoInicio) distanciaPadre[vertice.first] = {INT_MAX, string()};
         else distanciaPadre[vertice.first] = {INT_MAX, string()};
         retorno.insertVertex(vertice.first, vertice.second->data);
     }
 
     for(int i = 0; i<grafo.V-1; i++){
-        for(const pair<string, Vertex<TV, TE>*>& vertice: grafo.vertexes){
-            for(const Edge<TV, TE>*& arista: vertice.second->edges){
-                pair<int, string> inicio = distanciaPadre[arista->vertexes[0]->id];
-                pair<int, string> &llegada= distanciaPadre[arista->vertexes[1]->id];
+        //for(const pair<string, Vertex<TV, TE>*>& vertice: grafo.vertexes){
+        for(auto vertice: grafo.vertexes){
+            //for(const Edge<TV, TE>*& arista: vertice.second->edges){
+            for(auto arista: vertice.second->edges){
+                pair<TE, string> inicio = distanciaPadre[arista->vertexes[0]->id];
+                pair<TE, string> &llegada= distanciaPadre[arista->vertexes[1]->id];
                 if(inicio.first == llegada.first && inicio.first==INT_MAX){
                     continue;
                 }
@@ -49,8 +52,9 @@ DirectedGraph<TV, TE> bellman_ford(const DirectedGraph<TV, TE> &grafo, const str
         }
     }
 
-    for(const pair<string, pair<int, string>>& entrada: distanciaPadre){
-        retorno.createEdge(entrada.second.second,entrada.first);
+    for(const pair<string, pair<TE, string>>& entrada: distanciaPadre){
+        cout<<entrada.second.second<<" "<<entrada.first<<" "<<entrada.second.first<<endl;
+        retorno.createEdge(entrada.second.second,entrada.first, entrada.second.first);
     }
     return retorno;
 }
@@ -69,7 +73,7 @@ DirectedGraph<TV, TE> bellman_ford(const DirectedGraph<TV, TE> &grafo, const str
  * @return Un grafo arbol con solo aquellos vertices que generan las menores distancias
  */
 template<typename TV, typename TE>
-UnDirectedGraph<TV,TE> bellman_ford(const UnDirectedGraph<TV, TE> &grafo, const string &nodoInicio){
+UnDirectedGraph<TV,TE> bellman_ford(UnDirectedGraph<TV, TE> grafo, const string &nodoInicio){
     UnDirectedGraph<TV, TE> retorno;
     unordered_map<string, pair<int, string>> distanciaPadre;
 

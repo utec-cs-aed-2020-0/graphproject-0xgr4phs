@@ -12,14 +12,6 @@
 using namespace std;
 
 /**
- * Funcion para comparar aristas con respecto al peso
- */
-template<typename TV, typename TE>
-bool compEdge(Edge<TV, TE>*a, Edge<TV, TE>*b){
-    return (a->weight<b->weight);
-}
-
-/**
  * Funcion que emplea el algoritmo de Prim para retornar un grafo (DIRIGIDO) con el arbol de minima expansion
  * Se utiliza una pila para regresar a vertices previamente visitados
  * Si el disjoint set se unifica, se retorna previamente
@@ -73,7 +65,7 @@ DirectedGraph<TV, TE> prim(DirectedGraph<TV, TE> grafo, string inicio){
  * @return Grafo que representa el arbol de minima expansion
  */
 template<typename TV, typename TE>
-UnDirectedGraph<TV, TE> prim(const UnDirectedGraph<TV, TE>& grafo, string inicio){
+UnDirectedGraph<TV, TE> prim(UnDirectedGraph<TV, TE> grafo, string inicio){
     UnDirectedGraph<TV, TE> retorno;
     DisjointSetGrafo gSet(grafo);
     stack<Vertex<TV, TE>*> pilaVertice;

@@ -33,7 +33,7 @@ struct Vertex {
 
 template<typename TV, typename TE>
 class Graph{
-protected:    
+protected:
     std::unordered_map<string, Vertex<TV, TE>*>  vertexes{};
     
 public:

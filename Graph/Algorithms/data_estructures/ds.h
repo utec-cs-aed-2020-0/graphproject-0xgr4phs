@@ -3,23 +3,28 @@
 
 #include "../UndirectedGraph.h"
 #include "../DirectedGraph.h"
+#include "../graph.h"
 #include <unordered_map>
 #include<utility>
+
+/**
+ * Funcion para comparar aristas con respecto al peso
+ */
 
 using namespace std;
 
 /**
  * Clase que representa el disjoint set para los vertices de un grafo
  */
-class DisjointSetGrafo{
+class DisjointSetGrafoDirigido{
 private:
     unordered_map<string, string> almacen;
     int sets;
 public:
     template<typename TV, typename TE>
-    DisjointSetGrafo(const Graph<TV, TE>*& grafo){
+    DisjointSetGrafoDirigido(DirectedGraph<TV, TE> &grafo){
         sets = 0;
-        for(const pair<string, Vertex<TV, TE>*>& vertice: grafo->vertexes){
+        for(auto vertice: grafo.vertexes){
             almacen[vertice.first] = {vertice.first, 0};
             sets++;
         }
@@ -37,7 +42,36 @@ public:
         return false;
     }
     int getSets(){return sets;}
-    ~DisjointSetGrafo(){}
+    ~DisjointSetGrafoDirigido(){}
+};
+
+class DisjointSetGrafoNoDirigido{
+private:
+    unordered_map<string, string> almacen;
+    int sets;
+public:
+    template<typename TV, typename TE>
+    DisjointSetGrafoNoDirigido(UnDirectedGraph<TV, TE> &grafo){
+        sets = 0;
+        for(auto vertice: grafo.vertexes){
+            almacen[vertice.first] = {vertice.first, 0};
+            sets++;
+        }
+    }
+    string Find(string id){
+        return (almacen[id]!=id?Find(almacen[id]):id);
+    }
+    bool Union(string id1, string id2){
+        string raiz1 = Find(id1), raiz2 = Find(id2);
+        if(raiz1!=raiz2){
+            almacen[raiz2] = raiz1;
+            sets--;
+            return true;
+        }
+        return false;
+    }
+    int getSets(){return sets;}
+    ~DisjointSetGrafoNoDirigido(){}
 };
 
 #endif
