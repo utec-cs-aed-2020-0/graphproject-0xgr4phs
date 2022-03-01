@@ -26,35 +26,38 @@ template<typename TV, typename TE>
 DirectedGraph<TV, TE> bellman_ford( DirectedGraph<TV, TE> grafo, const string &nodoInicio){
     DirectedGraph<TV,TE> retorno;
 
-    unordered_map<string, pair<TE, string>> distanciaPadre;
-    //for(const pair<string, Vertex<TV, TE>*>& vertice: grafo.vertexes){
+    // Nodo actual, <<distancia, peso arista>, padre>
+    //unordered_map<string, pair<TE, string>> distanciaPadre;
+    unordered_map<string, pair<pair<TE,TE>, string>> distanciaPadre;
     for(auto vertice: grafo.vertexes){
-        if(vertice.first == nodoInicio) distanciaPadre[vertice.first] = {INT_MAX, string()};
-        else distanciaPadre[vertice.first] = {INT_MAX, string()};
+        //if(vertice.first == nodoInicio) distanciaPadre[vertice.first] = {0, string()};
+        //else distanciaPadre[vertice.first] = {INT_MAX, string()};
+        if(vertice.first == nodoInicio) distanciaPadre[vertice.first] = {{0,0}, string()};
+        else distanciaPadre[vertice.first] = {{INT_MAX,0}, string()};
+
         retorno.insertVertex(vertice.first, vertice.second->data);
     }
 
     for(int i = 0; i<grafo.V-1; i++){
-        //for(const pair<string, Vertex<TV, TE>*>& vertice: grafo.vertexes){
         for(auto vertice: grafo.vertexes){
-            //for(const Edge<TV, TE>*& arista: vertice.second->edges){
             for(auto arista: vertice.second->edges){
-                pair<TE, string> inicio = distanciaPadre[arista->vertexes[0]->id];
-                pair<TE, string> &llegada= distanciaPadre[arista->vertexes[1]->id];
-                if(inicio.first == llegada.first && inicio.first==INT_MAX){
+                pair<pair<TE,TE>, string> inicio = distanciaPadre[arista->vertexes[0]->id];
+                pair<pair<TE,TE>, string> &llegada= distanciaPadre[arista->vertexes[1]->id];
+                if(inicio.first.first == llegada.first.first && inicio.first.first==INT_MAX){
                     continue;
                 }
-                else if(llegada.first > inicio.first+arista->weight){
-                    llegada.first = inicio.first+arista->weight;
-                    llegada.second = inicio.second;
+                else if(llegada.first.first > inicio.first.first+arista->weight){
+                    llegada.first.first = inicio.first.first+arista->weight;
+                    llegada.first.second = arista->weight;
+                    llegada.second = arista->vertexes[0]->id;
                 }
             }
         }
     }
 
-    for(const pair<string, pair<TE, string>>& entrada: distanciaPadre){
-        cout<<entrada.second.second<<" "<<entrada.first<<" "<<entrada.second.first<<endl;
-        retorno.createEdge(entrada.second.second,entrada.first, entrada.second.first);
+    for(auto entrada: distanciaPadre){
+        //retorno.createEdge(entrada.second.second,entrada.first, entrada.second.first);
+        retorno.createEdge(entrada.second.second,entrada.first, entrada.second.first.second);
     }
     return retorno;
 }
@@ -99,8 +102,9 @@ UnDirectedGraph<TV,TE> bellman_ford(UnDirectedGraph<TV, TE> grafo, const string 
         }
     }
 
-    for(const pair<string, pair<int, string>>& entrada: distanciaPadre){
-        retorno.createEdge(entrada.second.second,entrada.first);
+    for(auto entrada: distanciaPadre){
+        //retorno.createEdge(entrada.second.second,entrada.first, entrada.second.first);
+        retorno.createEdge(entrada.second.second,entrada.first, grafo(entrada.second.second,entrada.first));
     }
     return retorno;
 }

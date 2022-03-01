@@ -24,7 +24,7 @@ using namespace std;
 template<typename TV, typename TE>
 DirectedGraph<TV, TE> prim(DirectedGraph<TV, TE> grafo, string inicio){
     DirectedGraph<TV, TE> retorno;
-    DisjointSetGrafo gSet(grafo);
+    DisjointSetGrafoDirigido gSet(grafo);
     stack<Vertex<TV, TE>*> pilaVertice;
     pilaVertice.push(grafo.vertexes[inicio]);
     for(const pair<string,Vertex<TV, TE>*>& vertice: grafo.vertexes){
@@ -32,7 +32,7 @@ DirectedGraph<TV, TE> prim(DirectedGraph<TV, TE> grafo, string inicio){
     }
 
     while(!pilaVertice.empty()){
-        sort(pilaVertice.top()->edges.begin(), pilaVertice.top()->edges.end(), compEdge);
+        sort(pilaVertice.top()->edges.begin(), pilaVertice.top()->edges.end(), [](Edge<TV, TE>* a, Edge<TV, TE>* b){return a->weight<b->weight;});
         std::list<Edge<TV, TE>*>& edgesAlias = pilaVertice.top()->edges;
         int edgesLength = edgesAlias.size();
         for(int i = 0; i<edgesLength; i++){
@@ -67,7 +67,7 @@ DirectedGraph<TV, TE> prim(DirectedGraph<TV, TE> grafo, string inicio){
 template<typename TV, typename TE>
 UnDirectedGraph<TV, TE> prim(UnDirectedGraph<TV, TE> grafo, string inicio){
     UnDirectedGraph<TV, TE> retorno;
-    DisjointSetGrafo gSet(grafo);
+    DisjointSetGrafoNoDirigido gSet(grafo);
     stack<Vertex<TV, TE>*> pilaVertice;
     pilaVertice.push(grafo.vertexes[inicio]);
     for(const pair<string,Vertex<TV, TE>*>& vertice: grafo.vertexes){
@@ -75,7 +75,7 @@ UnDirectedGraph<TV, TE> prim(UnDirectedGraph<TV, TE> grafo, string inicio){
     }
 
     while(!pilaVertice.empty()){
-        sort(pilaVertice.top()->edges.begin(), pilaVertice.top()->edges.end(), compEdge);
+        sort(pilaVertice.top()->edges.begin(), pilaVertice.top()->edges.end(), [](Edge<TV, TE>* a, Edge<TV, TE>* b){return a->weight<b->weight;});
         std::list<Edge<TV, TE>*>& edgesAlias = pilaVertice.top()->edges;
         int edgesLength = edgesAlias.size();
         for(int i = 0; i<edgesLength; i++){
