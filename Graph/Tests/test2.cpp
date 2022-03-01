@@ -28,11 +28,12 @@ int main(){
   grafito.createEdge("6","4",2);
   grafito.createEdge("7","6",1);
 
+  /* grafito.displayVertex("2"); */
 
   try{
- dijkstra<int,int>(grafito , "0").display();
+    dijkstra<int,int>(grafito , "0").display();
   }catch(const string x){
-    cout<<endl<<x;
+    /* cout<<x<<endl; */
   }
 
 

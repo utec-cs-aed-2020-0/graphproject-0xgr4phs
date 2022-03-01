@@ -27,12 +27,12 @@ DirectedGraph<TV,TE> dijkstra(DirectedGraph<TV,TE> & g, string start_node){
     }
     else{ 
       distancias.insert({it->second->id,numeric_limits<TE>::max()});
-      heap.insert(distance_pair<TE>{it->second->id,numeric_limits<TE>::max()});
+      /* heap.insert(distance_pair<TE>{it->second->id,numeric_limits<TE>::max()}); */
     }
     retorno.insertVertex(it->second->id,it->second->data);
   }
-
-  while(visitados.size() != g.V){
+  //visitados.size() != g.V
+  while(true){
     auto m = heap.minValue();
     visitados.insert(m.nodo);
     if(m.nodo != start_node){
@@ -42,13 +42,19 @@ DirectedGraph<TV,TE> dijkstra(DirectedGraph<TV,TE> & g, string start_node){
     for(auto it = g.vertexes[m.nodo]->edges.begin(); it != g.vertexes[m.nodo]->edges.end(); ++it){
       auto v2 = (*it)->vertexes[1];
       if(visitados.find(v2->id) == visitados.end() && distancias[v2->id] > (m.peso +(*it)->weight)){
-	heap.remove(distance_pair<TE>{v2->id,distancias[v2->id]});
+
+	/* cout<<(*it)->vertexes[1]->id<<" "; */
+	if(heap.find(distance_pair<TE>{v2->id,distancias[v2->id]}))
+	  heap.remove(distance_pair<TE>{v2->id,distancias[v2->id]});
 	distancias[v2->id] = m.peso + (*it)->weight;
 	padres[v2->id] = m.nodo;
 	heap.insert(distance_pair<TE>{v2->id,distancias[v2->id]});
       }
     }
+    /* cout<<endl; */
+    /* cout<<m.nodo; */
     heap.remove(m);
+    if(heap.size() == 0) break;
   }
 
   /* for(auto it = distancias.begin(); it != distancias.end();++it){ */
@@ -74,14 +80,14 @@ UnDirectedGraph<TV,TE> dijkstra(UnDirectedGraph<TV,TE> & g, string start_node){
     }
     else{ 
       distancias.insert({it->second->id,numeric_limits<TE>::max()});
-      heap.insert(distance_pair<TE>{it->second->id,numeric_limits<TE>::max()});
+      /* heap.insert(distance_pair<TE>{it->second->id,numeric_limits<TE>::max()}); */
     }
 
     retorno.insertVertex(it->second->id,it->second->data);
   }
 
-
-  while(visitados.size() != g.V){
+  //visitados.size() != g.V
+  while(true){
     auto m = heap.minValue();
     visitados.insert(m.nodo);
     if(m.nodo != start_node){
@@ -89,11 +95,11 @@ UnDirectedGraph<TV,TE> dijkstra(UnDirectedGraph<TV,TE> & g, string start_node){
     }
 
     for(auto it = g.vertexes[m.nodo]->edges.begin(); it != g.vertexes[m.nodo]->edges.end(); ++it){
-      /* auto v2 = (*it)->vertexes[0]->id == m.nodo ? (*it)->vertexes[1] : (*it)->vertexes[0]; */
       auto v2 = (*it)->vertexes[1];
       if(visitados.find(v2->id) == visitados.end() && distancias[v2->id] > (m.peso +(*it)->weight)){
 
-	heap.remove(distance_pair<TE>{v2->id,distancias[v2->id]});
+	if(heap.find(distance_pair<TE>{v2->id,distancias[v2->id]}))
+	  heap.remove(distance_pair<TE>{v2->id,distancias[v2->id]});
 	distancias[v2->id] = m.peso + (*it)->weight;
 	padres[v2->id] = m.nodo;
 	heap.insert(distance_pair<TE>{v2->id,distancias[v2->id]});
@@ -106,15 +112,16 @@ UnDirectedGraph<TV,TE> dijkstra(UnDirectedGraph<TV,TE> & g, string start_node){
 
     }
     heap.remove(m);
+    if(heap.size() == 0) break;
 
   }
 
 
 
-  for(auto it = distancias.begin(); it != distancias.end();++it){
-    cout<<"{"<<it->first<<","<<it->second<<"}"<<" ";
-  }
-  cout<<endl;
+/*   for(auto it = distancias.begin(); it != distancias.end();++it){ */
+/*     cout<<"{"<<it->first<<","<<it->second<<"}"<<" "; */
+/*   } */
+/*   cout<<endl; */
 
   return retorno;
 }

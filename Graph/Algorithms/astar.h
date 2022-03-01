@@ -38,7 +38,8 @@ deque<distance_pair<TE>> astar(DirectedGraph<TV,TE> & gr,unordered_map<string,TE
 
     }
     for(auto it = gr.vertexes[m.nodo]->edges.begin(); it != gr.vertexes[m.nodo]->edges.end(); ++it){
-      auto v2 = (*it)->vertexes[0]->id == m.nodo ? (*it)->vertexes[1] : (*it)->vertexes[0];
+      /* auto v2 = (*it)->vertexes[0]->id == m.nodo ? (*it)->vertexes[1] : (*it)->vertexes[0]; */
+      auto v2 = (*it)->vertexes[1];
 
       if(closed_set.find(v2->id) == closed_set.end() &&( f[v2->id] == numeric_limits<TE>::max()|| 
 	    f[v2->id] - h[v2->id] > (f[m.nodo] - h[m.nodo] +(*it)->weight))){

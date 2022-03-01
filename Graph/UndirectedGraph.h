@@ -23,15 +23,25 @@ UnDirectedGraph<TV,TE> dijkstra(UnDirectedGraph<TV,TE> & , string);
 template<typename TV,typename TE>
 deque<distance_pair<TE>> astar(UnDirectedGraph<TV,TE> & gr,unordered_map<string,TE> & h ,string start_node,string end_node);
 
+template<typename TE>
+struct matrix_square_pair;
+
+template<typename TV,typename TE>
+matrix_square_pair<TE> floyd_warshall(UnDirectedGraph<TV,TE> & g);
+
 
 template<typename TV, typename TE>
 class UnDirectedGraph : public Graph<TV, TE>{
   template<typename T,typename E>
-  friend UnDirectedGraph<T, E> dijkstra(UnDirectedGraph<T,E>&,string);
+    friend UnDirectedGraph<T, E> dijkstra(UnDirectedGraph<T,E>&,string);
 
 
   template<typename T,typename E>
-  friend deque<distance_pair<E>> astar(UnDirectedGraph<T,E> & gr,unordered_map<string,E> & h ,string start_node,string end_node);
+    friend deque<distance_pair<E>> astar(UnDirectedGraph<T,E> & gr,unordered_map<string,E> & h ,string start_node,string end_node);
+
+  template<typename T,typename E>
+    friend matrix_square_pair<E> floyd_warshall(UnDirectedGraph<T,E> & g);
+
   private:
   int E{};
   int V{};

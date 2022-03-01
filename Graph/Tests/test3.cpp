@@ -30,7 +30,7 @@ int main(){
 
 
   try{
-   dijkstra<int,int>(grafito , "A");
+   dijkstra<int,int>(grafito , "A").display();
   }catch(const string x){
     cout<<endl<<x;
   }

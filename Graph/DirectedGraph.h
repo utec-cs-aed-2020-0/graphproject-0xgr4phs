@@ -14,6 +14,16 @@ using namespace std;
 template<typename TV, typename TE>
 class DirectedGraph;
 
+
+template<typename TE>
+struct matrix_square_pair;
+
+template<typename TV,typename TE>
+matrix_square_pair<TE> floyd_warshall(DirectedGraph<TV,TE> & g);
+
+
+
+
 template<typename TV,typename TE>
 deque<distance_pair<TE>> astar(DirectedGraph<TV,TE> & gr,unordered_map<string,TE> & h ,string start_node,string end_node);
 
@@ -26,6 +36,8 @@ class DirectedGraph : public Graph<TV, TE> {
     friend DirectedGraph<T, E> dijkstra(DirectedGraph<T,E>&,string);
   template<typename T,typename E> 
     friend  deque<distance_pair<E>> astar(DirectedGraph<T,E> & ,unordered_map<string,E> & , string ,string );
+  template<typename T,typename E>
+    friend matrix_square_pair<E> floyd_warshall(DirectedGraph<T,E> & g);
 
   private:
   int E{};
