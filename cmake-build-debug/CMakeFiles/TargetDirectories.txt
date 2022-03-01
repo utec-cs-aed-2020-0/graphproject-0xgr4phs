@@ -1,3 +1,3 @@
-/home/alexander/UTEC/DSA/projects/graphproject-0xgr4phs/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/alexander/UTEC/DSA/projects/graphproject-0xgr4phs/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/alexander/UTEC/DSA/projects/graphproject-0xgr4phs/cmake-build-debug/CMakeFiles/graphproject_0xgr4phs.dir
+C:/Users/Alexander/ClionProjects/GraphsProject/cmake-build-debug/CMakeFiles/GraphsProject.dir
+C:/Users/Alexander/ClionProjects/GraphsProject/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Alexander/ClionProjects/GraphsProject/cmake-build-debug/CMakeFiles/rebuild_cache.dir

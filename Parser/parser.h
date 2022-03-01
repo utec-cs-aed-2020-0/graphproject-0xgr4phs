@@ -1,8 +1,0 @@
-//
-// Created by alexander on 11/02/22.
-//
-
-#ifndef GRAPHPROJECT_0XGR4PHS_PARSER_H
-#define GRAPHPROJECT_0XGR4PHS_PARSER_H
-
-#endif //GRAPHPROJECT_0XGR4PHS_PARSER_H
