@@ -8,6 +8,9 @@
 
 using namespace std;
 
+/**
+ * Clase que representa el disjoint set para los vertices de un grafo
+ */
 class DisjointSetGrafo{
 private:
     unordered_map<string, string> almacen;

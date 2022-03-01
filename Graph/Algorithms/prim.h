@@ -11,11 +11,24 @@
 
 using namespace std;
 
+/**
+ * Funcion para comparar aristas con respecto al peso
+ */
 template<typename TV, typename TE>
 bool compEdge(Edge<TV, TE>*a, Edge<TV, TE>*b){
     return (a->weight<b->weight);
 }
 
+/**
+ * Funcion que emplea el algoritmo de Prim para retornar un grafo (DIRIGIDO) con el arbol de minima expansion
+ * Se utiliza una pila para regresar a vertices previamente visitados
+ * Si el disjoint set se unifica, se retorna previamente
+ * @tparam TV Tipo de dato para la informacion del vertice
+ * @tparam TE Tipo de dato para el peso de la arista
+ * @param grafo grafo a ser evaluado
+ * @param inicio vertice inicial para el algoritmo
+ * @return Grafo que representa el arbol de minima expansion
+ */
 template<typename TV, typename TE>
 DirectedGraph<TV, TE> prim(DirectedGraph<TV, TE> grafo, string inicio){
     DirectedGraph<TV, TE> retorno;
@@ -41,11 +54,24 @@ DirectedGraph<TV, TE> prim(DirectedGraph<TV, TE> grafo, string inicio){
         if(edgesAlias.size() == 0) {
             pilaVertice.pop();
         }
+        if(gSet.getSets()==1){
+            return retorno;
+        }
     }
 
     return retorno;
 }
 
+/**
+ * Funcion que emplea el algoritmo de Prim para retornar un grafo (NO DIRIGIDO) con el arbol de minima expansion
+ * Se utiliza una pila para regresar a vertices previamente visitados
+ * Si el disjoint set se unifica, se retorna previamente
+ * @tparam TV Tipo de dato para la informacion del vertice
+ * @tparam TE Tipo de dato para el peso de la arista
+ * @param grafo grafo a ser evaluado
+ * @param inicio vertice inicial para el algoritmo
+ * @return Grafo que representa el arbol de minima expansion
+ */
 template<typename TV, typename TE>
 UnDirectedGraph<TV, TE> prim(const UnDirectedGraph<TV, TE>& grafo, string inicio){
     UnDirectedGraph<TV, TE> retorno;

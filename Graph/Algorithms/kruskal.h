@@ -10,11 +10,22 @@
 
 using namespace std;
 
+/**
+ * Funcion para comparar aristas con respecto al peso
+ */
 template<typename TV, typename TE>
 bool compEdge(Edge<TV, TE>*a, Edge<TV, TE>*b){
     return (a->weight<b->weight);
 }
 
+/**
+ * Algoritmo Kruskal que retorna un grafo (DIRIGIDO) con el arbol de minima expansion
+ * Se organizan las aristas desde su peso y se verifica que en el disjoint set no existan ciclos
+ * @tparam TV tipo de dato que almacena el vertice
+ * @tparam TE tipo de dato que almacena el peso de arista
+ * @param grafo Grafo a ser evaluado
+ * @return grafo que representa el arbol de minima expansion
+ */
 template<typename TV, typename TE>
 DirectedGraph<TV, TE> kruskal(const DirectedGraph<TV, TE>& grafo){
     DirectedGraph<TV, TE> retorno;
@@ -41,6 +52,14 @@ DirectedGraph<TV, TE> kruskal(const DirectedGraph<TV, TE>& grafo){
     return retorno;
 }
 
+/**
+ * Algoritmo Kruskal que retorna un grafo (NO DIRIGIDO) con el arbol de minima expansion
+ * Se organizan las aristas desde su peso y se verifica que en el disjoint set no existan ciclos
+ * @tparam TV tipo de dato que almacena el vertice
+ * @tparam TE tipo de dato que almacena el peso de arista
+ * @param grafo Grafo a ser evaluado
+ * @return grafo que representa el arbol de minima expansion
+ */
 template<typename TV, typename TE>
 UnDirectedGraph<TV, TE> kruskal(const UnDirectedGraph<TV, TE>& grafo){
     UnDirectedGraph<TV, TE> retorno;
