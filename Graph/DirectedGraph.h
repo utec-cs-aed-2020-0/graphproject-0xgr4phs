@@ -35,6 +35,8 @@ DirectedGraph<TV, TE> bellman_ford(const DirectedGraph<TV, TE> &grafo, const str
 template<typename TV,typename TE>
 DirectedGraph<TV, TE> kruskal(const DirectedGraph<TV, TE> &grafo);
 class DisjointSetGrafo;
+template<typename TV, typename TE>
+DirectedGraph<TV, TE> prim(const DirectedGraph<TV, TE>& grafo, string inicio);
 
 template<typename TV, typename TE>
 class DirectedGraph : public Graph<TV, TE> {
@@ -48,6 +50,7 @@ class DirectedGraph : public Graph<TV, TE> {
   friend DirectedGraph<TV, TE> bellman_ford(const DirectedGraph<TV, TE> &grafo, const string &nodoInicio);
   friend DirectedGraph<TV, TE> kruskal(const DirectedGraph<TV, TE> &grafo);
   friend class DisjointSetGrafo;
+  friend DirectedGraph<TV, TE> prim(const DirectedGraph<TV, TE>& grafo, string inicio);
 
   private:
   int E{};

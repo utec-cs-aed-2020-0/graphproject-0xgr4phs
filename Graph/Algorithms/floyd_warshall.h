@@ -106,8 +106,6 @@ matrix_square_pair<TE> floyd_warshall(DirectedGraph<TV,TE> & g){
 
 }
 
-
-
 template<typename TV,typename TE>
 matrix_square_pair<TE> floyd_warshall(UnDirectedGraph<TV,TE> & g){
   matrix_square_pair<TE> dyp;
