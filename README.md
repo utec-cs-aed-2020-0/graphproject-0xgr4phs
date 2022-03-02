@@ -59,7 +59,7 @@ template <typename TV, typename TE>
 DirectedGraph<TV, TE> dijkstra(DirectedGraph<TV, TE> &, string);
 ```
 
-- ** Declaración dentro de definición de clase**
+- **Declaración dentro de definición de clase**
 
 ```cpp
 template <typename T, typename E>  
