@@ -24,10 +24,10 @@
 /**
  * DFS
  *
- * El codicioso algoritmo de búsqueda mejor primero siempre selecciona la ruta que parece mejor
- * en ese momento. Es la combinación de algoritmos de búsqueda primero en profundidad y primero
- * en amplitud. Utiliza la función heurística y la búsqueda. La búsqueda Best-first nos permite
- * aprovechar las ventajas de ambos algoritmos.
+ * La búsqueda en profundidad (DFS) es un algoritmo para atravesar o buscar estructuras de datos 
+ * de árboles o gráficos. El algoritmo comienza en el nodo raíz (seleccionando algún nodo arbitrario 
+ * como nodo raíz en el caso de un gráfico) y explora lo más lejos posible a lo largo de cada 
+ * rama antes de retroceder.
  *
  * Fuente: https://bit.ly/3C1sy3E
  */
