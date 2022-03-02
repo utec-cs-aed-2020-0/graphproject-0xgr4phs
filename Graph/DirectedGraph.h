@@ -19,7 +19,7 @@ class DirectedGraph;
 
 // Funciones auxiliares
 template<typename VertexType, typename EdgeType>
-std::string greedyBFS(DirectedGraph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
+DirectedGraph<VertexType, EdgeType> greedyBFS(DirectedGraph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
 
 template<typename TV, typename TE>
 class DirectedGraph : public Graph<TV, TE> {
@@ -56,6 +56,9 @@ public:
     bool findById(string id) override;
 
     void display() override;
+private:
+    template<typename VertexType, typename EdgeType>
+    friend DirectedGraph<VertexType, EdgeType> greedyBFS(DirectedGraph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
 };
 
 template<typename TV, typename TE>

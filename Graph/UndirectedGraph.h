@@ -26,8 +26,8 @@ class UnDirectedGraph;
 
 // Funciones auxiliares
 
-//template <typename VertexType,typename EdgeType>
-//std::string greedyBFS(UnDirectedGraph<VertexType,EdgeType> *graph, std::string start_node, std::string end_node);
+template <typename VertexType,typename EdgeType>
+UnDirectedGraph<VertexType,EdgeType> greedyBFS(UnDirectedGraph<VertexType,EdgeType> *graph, std::string start_node, std::string end_node);
 
 template<typename TV, typename TE>
 class UnDirectedGraph : public Graph<TV, TE> {
@@ -64,8 +64,8 @@ public:
 
 private:
     /* Declaración de funciones amigas */
-//    template <typename VertexType, typename EdgeType>
-//    friend std::string greedyBFS(UnDirectedGraph<VertexType,EdgeType>* graph, std::string start_node, std::string end_node);
+   template <typename VertexType, typename EdgeType>
+   friend std::string greedyBFS(UnDirectedGraph<VertexType,EdgeType>* graph, std::string start_node, std::string end_node);
 };
 
 template<typename TV, typename TE>
