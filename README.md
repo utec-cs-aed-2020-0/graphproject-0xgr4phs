@@ -108,24 +108,30 @@ UnDirectedGraph<TV, TE> prim(UnDirectedGraph<TV, TE> grafo, string inicio);
 
 Sabiendo que solo se pueden recorrer vértices si existe una conexión dirigida entre ellos, existen casos donde no será posible llegar a todos los vértices. Por ende, no podrá obtenerse un arbol de expansión mínima. Por ese motivo, solo se utiliza para el caso de grafos no dirigidos.
 
+#### Algoritmo A*
+
+Es un algoritmo de busqueda basado en heurísticas para hallar la menor distancia entre dos vértices seleccionados. Presenta un método de resolución similar a Dijkstra, con la diferencia de que solo se expande en sus nodos cercanos y utiliza una heurística (aproximación) hacia el nodo final de tal forma que pueda tomar un camino óptimo sin consultar una mayor cantidad de vértices.
+
+![](img/as.gif)
+
 ```cpp
-//Given the graph
-UndirectedGraph<char, int> graph;
-
-//1- Generates a MST graph using the Kruskal approach (only for undirected graphs)
-Kruskal<char, int> kruskal(&graph);
-UndirectedGraph<char, int> result = kruskal.apply();//return a tree
-
-//2- Generates a MST graph using the Prim approach (only for undirected graphs)
-Prim<char, int> prim(&graph, "A");
-UndirectedGraph<char, int> result = prim.apply();//return a tree
-
-//3- A *
-AStar<char, int> astar(&graph, "A", "Z", vector<int> heuristics);
-UndirectedGraph<char, int> result = astar.apply();
-
+template <typename TV, typename TE>
+deque<distance_pair<TE>> astar(DirectedGraph<TV, TE> &gr, unordered_map<string, TE> &h, string start_node, string end_node);
 ```
 
+#### Algoritmo Depth-First-Search
+
+Empleamos este algoritmo de tal manera que podamos obtener un árbol con todos los nodos. La forma en que este algoritmo surca el grafo es por medio de explorar el máximo hijo de una rama, marcandolo como ya visitado y dirigirse hacia el siguiente hijo máximo. En el momento que no existe hijos máximos, se realiza backtracking para hallar el padre. Este procedimiento se realiza hasta que todos los nodos hayan sido recorridos.
+
+![](img/dfs.gif)
+
+```cpp
+template <typename VertexType, typename EdgeType>
+UnDirectedGraph<VertexType, EdgeType> DFS(UnDirectedGraph<VertexType, EdgeType> *graph, std::string start_node);
+
+template <typename VertexType, typename EdgeType>
+DirectedGraph<VertexType, EdgeType> DFS(DirectedGraph<VertexType, EdgeType> *graph, std::string start_node);
+```
 
 ## JSON file parser
 * Construye un grafo a partir de una archivo JSON de aereopuertos del mundo. 
