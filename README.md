@@ -86,5 +86,5 @@ void dGraphMake(DirectedGraph<string, double> &tempGraph); // Adds the parsed da
 ```
 # How to use this repo
 ```
-
+$ g++ main.cpp && ./a.out
 ```
