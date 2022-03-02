@@ -80,13 +80,6 @@ public:
     virtual bool findById(std::string id) = 0;
     virtual void display() = 0;
 
-private:
-    //    /* Declaración de funciones amigas */
-    //    template <typename VertexType, typename EdgeType>
-    //    friend Graph<VertexType,EdgeType> greedyBFS(Graph<VertexType,EdgeType>* graph, std::string start_node, std::string end_node);
-    //
-    //    template <typename VertexType, typename EdgeType>
-    //    friend Graph<VertexType, EdgeType> DFS(Graph<VertexType,EdgeType>* graph, std::string start_node);
 };
 
 template <typename TV, typename TE>

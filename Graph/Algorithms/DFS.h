@@ -42,7 +42,6 @@ UnDirectedGraph<VertexType, EdgeType> DFS(UnDirectedGraph<VertexType, EdgeType> 
     std::logic_error("No se encontró el nodo incial. ");
 
   // Variable de salida (recorrdigo del DFS)
-  //    std::string path = "";
   UnDirectedGraph<VertexType, EdgeType> output;
   typedef Vertex<VertexType, EdgeType> vertex_t;
   typedef Edge<VertexType, EdgeType> edge_t;
@@ -63,7 +62,6 @@ UnDirectedGraph<VertexType, EdgeType> DFS(UnDirectedGraph<VertexType, EdgeType> 
     auto *left = stack_vertexes.top().second.first;
     auto *right = stack_vertexes.top().second.second;
     stack_vertexes.pop();
-    //        path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n";
     output.insertVertex(right->id, right->data);
     output.insertVertex(left->id, left->data);
 
@@ -89,7 +87,6 @@ DirectedGraph<VertexType, EdgeType> DFS(DirectedGraph<VertexType, EdgeType> *gra
     std::logic_error("No se encontró el nodo incial. ");
 
   // Variable de salida (recorrdigo del DFS)
-  //    std::string path = "";
   DirectedGraph<VertexType, EdgeType> output;
   typedef Vertex<VertexType, EdgeType> vertex_t;
   typedef Edge<VertexType, EdgeType> edge_t;
@@ -110,7 +107,6 @@ DirectedGraph<VertexType, EdgeType> DFS(DirectedGraph<VertexType, EdgeType> *gra
     auto *left = stack_vertexes.top().second.first;
     auto *right = stack_vertexes.top().second.second;
     stack_vertexes.pop();
-    //        path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n";
     output.insertVertex(right->id, right->data);
     output.insertVertex(left->id, left->data);
 

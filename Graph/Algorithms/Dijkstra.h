@@ -39,11 +39,9 @@ DirectedGraph<TV, TE> dijkstra(DirectedGraph<TV, TE> &g, string start_node)
     else
     {
       distancias.insert({it->second->id, numeric_limits<TE>::max()});
-      /* heap.insert(distance_pair<TE>{it->second->id,numeric_limits<TE>::max()}); */
     }
     retorno.insertVertex(it->second->id, it->second->data);
   }
-  // visitados.size() != g.V
   while (true)
   {
     auto m = heap.minValue();
@@ -59,7 +57,6 @@ DirectedGraph<TV, TE> dijkstra(DirectedGraph<TV, TE> &g, string start_node)
       if (visitados.find(v2->id) == visitados.end() && distancias[v2->id] > (m.peso + (*it)->weight))
       {
 
-        /* cout<<(*it)->vertexes[1]->id<<" "; */
         if (heap.find(distance_pair<TE>{v2->id, distancias[v2->id]}))
           heap.remove(distance_pair<TE>{v2->id, distancias[v2->id]});
         distancias[v2->id] = m.peso + (*it)->weight;
@@ -67,16 +64,10 @@ DirectedGraph<TV, TE> dijkstra(DirectedGraph<TV, TE> &g, string start_node)
         heap.insert(distance_pair<TE>{v2->id, distancias[v2->id]});
       }
     }
-    /* cout<<endl; */
-    /* cout<<m.nodo; */
     heap.remove(m);
     if (heap.size() == 0)
       break;
   }
-
-  /* for(auto it = distancias.begin(); it != distancias.end();++it){ */
-  /*   cout<<"{"<<it->first<<","<<it->second<<"}"<<" "; */
-  /* } */
 
   return retorno;
 }
@@ -101,13 +92,11 @@ UnDirectedGraph<TV, TE> dijkstra(UnDirectedGraph<TV, TE> &g, string start_node)
     else
     {
       distancias.insert({it->second->id, numeric_limits<TE>::max()});
-      /* heap.insert(distance_pair<TE>{it->second->id,numeric_limits<TE>::max()}); */
     }
 
     retorno.insertVertex(it->second->id, it->second->data);
   }
 
-  // visitados.size() != g.V
   while (true)
   {
     auto m = heap.minValue();
@@ -134,11 +123,6 @@ UnDirectedGraph<TV, TE> dijkstra(UnDirectedGraph<TV, TE> &g, string start_node)
     if (heap.size() == 0)
       break;
   }
-
-  /*   for(auto it = distancias.begin(); it != distancias.end();++it){ */
-  /*     cout<<"{"<<it->first<<","<<it->second<<"}"<<" "; */
-  /*   } */
-  /*   cout<<endl; */
 
   return retorno;
 }

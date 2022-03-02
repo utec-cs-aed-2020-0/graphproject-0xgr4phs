@@ -97,8 +97,6 @@ public:
   void display() override;
 
 private:
-  //    template<typename VertexType, typename EdgeType>
-  //      friend DirectedGraph<VertexType, EdgeType> greedyBFS(DirectedGraph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
   template <typename VertexType, typename EdgeType>
   friend DirectedGraph<VertexType, EdgeType> DFS(DirectedGraph<VertexType, EdgeType> *graph, std::string start_node);
 

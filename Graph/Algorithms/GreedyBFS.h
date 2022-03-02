@@ -44,7 +44,6 @@ DirectedGraph<VertexType, EdgeType> greedyBFS(DirectedGraph<VertexType, EdgeType
         std::logic_error("Los nodos parámetros no funcionan correctamente.");
 
     // Variable de salida (recorrdigo del greedyBFS)
-    std::string path = "";
     DirectedGraph<VertexType, EdgeType> output;
     typedef Vertex<VertexType, EdgeType> vertex_t;
     typedef Edge<VertexType, EdgeType> edge_t;
@@ -65,7 +64,6 @@ DirectedGraph<VertexType, EdgeType> greedyBFS(DirectedGraph<VertexType, EdgeType
         auto *left = pq.top().second.first;
         auto *right = pq.top().second.second;
         pq.pop();
-        /* path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n"; */
         output.insertVertex(right->id, right->data);
         output.insertVertex(left->id, left->data);
 
@@ -97,7 +95,6 @@ UnDirectedGraph<VertexType, EdgeType> greedyBFS(UnDirectedGraph<VertexType, Edge
         std::logic_error("Los nodos parámetros no funcionan correctamente.");
 
     // Variable de salida (recorrdigo del greedyBFS)
-    std::string path = "";
     UnDirectedGraph<VertexType, EdgeType> output;
     typedef Vertex<VertexType, EdgeType> vertex_t;
     typedef Edge<VertexType, EdgeType> edge_t;
@@ -118,7 +115,6 @@ UnDirectedGraph<VertexType, EdgeType> greedyBFS(UnDirectedGraph<VertexType, Edge
         auto *left = pq.top().second.first;
         auto *right = pq.top().second.second;
         pq.pop();
-        /* path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n"; */
         output.insertVertex(right->id, right->data);
         output.insertVertex(left->id, left->data);
 
