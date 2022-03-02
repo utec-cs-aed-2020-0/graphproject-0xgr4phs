@@ -2,7 +2,7 @@
 #include <fstream>
 #include <math.h>
 #include "graph_json.h"
-#include "../Graph/Algorithms/dijkstra.h"
+#include "../Graph/Algorithms/Dijkstra.h"
 
 
 using namespace std;
