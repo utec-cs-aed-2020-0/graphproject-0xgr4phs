@@ -119,4 +119,3 @@ UnDirectedGraph<VertexType, EdgeType> greedyBFS(UnDirectedGraph<VertexType,EdgeT
 };
 
 #endif // GREEDYBFS_H
-
