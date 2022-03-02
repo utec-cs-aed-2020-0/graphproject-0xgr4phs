@@ -4,9 +4,12 @@
 --------
 
 ## Integrantes
-|   Apellidos y Nombres   |           Email               |
-|-------------------------|-------------------------------|
+|   Apellidos y Nombres    |           Email               |
+|--------------------------|-------------------------------|
 | Morales Panitz, Alexander| alexander.morales@utec.edu.pe|
+| Ugarte Quispe, Grover    | grover.ugarte@utec.edu.pe    |
+| Bracamento Otiniano, Eric| eric.bracamonte@utec.edu.pe  |
+
 -
 - 
 - 
