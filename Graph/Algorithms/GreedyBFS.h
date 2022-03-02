@@ -35,15 +35,14 @@
 
 /* Implementación */
 template <typename VertexType,typename EdgeType>
-UnDirectedGraph<VertexType, EdgeType> greedyBFS(UnDirectedGraph<VertexType,EdgeType> *graph, std::string start_node,
-                                                std::string end_node){
+DirectedGraph<VertexType, EdgeType> greedyBFS(DirectedGraph<VertexType,EdgeType> *graph, std::string start_node,
+                      std::string end_node){
     // Verificar si existen los dos vértices en el grafo
     if (graph->findById(start_node) && graph->findById(end_node)) std::logic_error("Los nodos parámetros no funcionan correctamente.");
 
     // Variable de salida (recorrdigo del greedyBFS)
-//    std::string path = "";
-    UnDirectedGraph<VertexType, EdgeType> output;
-
+    std::string path = "";
+    DirectedGraph<VertexType, EdgeType> output;
     typedef Vertex<VertexType, EdgeType> vertex_t;
     typedef Edge<VertexType, EdgeType> edge_t;
     typedef std::pair<EdgeType, std::pair<vertex_t*, vertex_t*>> type_pair;
@@ -62,9 +61,8 @@ UnDirectedGraph<VertexType, EdgeType> greedyBFS(UnDirectedGraph<VertexType,EdgeT
         auto* left = pq.top().second.first;
         auto* right = pq.top().second.second;
         pq.pop();
+        path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n";
         output.insertVertex(right->id, right->data);
-//        path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n";
-
         if (right == end_vertex) break;
 
         for (edge_t* &edge : right->edges) {
@@ -79,15 +77,14 @@ UnDirectedGraph<VertexType, EdgeType> greedyBFS(UnDirectedGraph<VertexType,EdgeT
 };
 
 template <typename VertexType,typename EdgeType>
-DirectedGraph<VertexType, EdgeType> greedyBFS(DirectedGraph<VertexType,EdgeType> *graph, std::string start_node,
-                      std::string end_node){
+UnDirectedGraph<VertexType, EdgeType> greedyBFS(UnDirectedGraph<VertexType,EdgeType> *graph, std::string start_node,
+                                              std::string end_node){
     // Verificar si existen los dos vértices en el grafo
     if (graph->findById(start_node) && graph->findById(end_node)) std::logic_error("Los nodos parámetros no funcionan correctamente.");
 
     // Variable de salida (recorrdigo del greedyBFS)
-    DirectedGraph<VertexType, EdgeType> output;
-//    std::string path = "";
-
+    std::string path = "";
+    UnDirectedGraph<VertexType, EdgeType> output;
     typedef Vertex<VertexType, EdgeType> vertex_t;
     typedef Edge<VertexType, EdgeType> edge_t;
     typedef std::pair<EdgeType, std::pair<vertex_t*, vertex_t*>> type_pair;
@@ -106,9 +103,8 @@ DirectedGraph<VertexType, EdgeType> greedyBFS(DirectedGraph<VertexType,EdgeType>
         auto* left = pq.top().second.first;
         auto* right = pq.top().second.second;
         pq.pop();
+        path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n";
         output.insertVertex(right->id, right->data);
-//        path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n";
-
         if (right == end_vertex) break;
 
         for (edge_t* &edge : right->edges) {
