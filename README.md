@@ -4,7 +4,15 @@
   <br>
   UTEC Graphs
   <br>
-</h1><img>
+</h1>
+<h1 align="center">
+  <br>
+  <a href="#"><img src="./assets/capture.gif" alt="Markdownify" width="70%"></a>
+  <br>
+  UTEC Graphs
+  <br>
+</h1>
+
 
 ## Integrantes
 |   Apellidos y Nombres    |           Email               |
