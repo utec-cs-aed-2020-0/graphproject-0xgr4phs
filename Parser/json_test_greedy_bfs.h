@@ -1,3 +1,6 @@
+#ifndef jtgreedy_h
+#define jtgreedy_h
+
 #include <iostream>
 #include <fstream>
 #include <math.h>
@@ -81,3 +84,5 @@ void GreedyBFSTest()
     cout << endl
          << "finished" << endl;
 }
+
+#endif

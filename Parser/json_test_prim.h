@@ -1,3 +1,6 @@
+#ifndef jtprim_h
+#define jtprim_h
+
 #include <iostream>
 #include <fstream>
 #include <math.h>
@@ -81,3 +84,5 @@ void PrimTest()
     cout << endl
          << "finished" << endl;
 }
+
+#endif

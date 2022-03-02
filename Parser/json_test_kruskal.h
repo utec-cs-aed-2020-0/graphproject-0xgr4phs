@@ -1,3 +1,6 @@
+#ifndef jtkruskal_h
+#define jtkruskal_h
+
 #include <iostream>
 #include <fstream>
 #include <math.h>
@@ -81,3 +84,5 @@ void KruskalTest()
     cout << endl
          << "finished" << endl;
 }
+
+#endif

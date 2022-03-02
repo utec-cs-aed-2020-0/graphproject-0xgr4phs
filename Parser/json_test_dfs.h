@@ -1,3 +1,6 @@
+#ifndef jtdfs_h
+#define jtdfs_h
+
 #include <iostream>
 #include <fstream>
 #include <math.h>
@@ -81,3 +84,5 @@ void DFSTest()
     cout << endl
          << "finished" << endl;
 }
+
+#endif
