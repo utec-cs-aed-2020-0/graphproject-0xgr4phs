@@ -236,7 +236,21 @@ bool UnDirectedGraph<TV, TE>::findById(std::string id) {
 
 template<typename TV, typename TE>
 void UnDirectedGraph<TV, TE>::display() {
+    vector<string> keys;
+    for(auto it = this->vertexes.begin();it != this->vertexes.end();++it){
+      keys.push_back(it->first);
+    }
 
+    sort(keys.begin(),keys.end());
+    
+    for(auto&i: keys) {
+      auto v = this->vertexes[i];
+      cout<<"Las aristas de "<<v->id<<" son: ";
+      for(auto it = v->edges.begin(); it != v->edges.end();++it) {
+	    cout<<"({"<<(*it)->vertexes[0]->id<<","<<(*it)->vertexes[1]->id<<"}, w: "<<(*it)->weight<<") ";
+      }
+      cout<<endl;
+    }
 }
 
 
