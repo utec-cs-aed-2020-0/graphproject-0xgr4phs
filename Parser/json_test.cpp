@@ -1,8 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <math.h>
-#include "../Graph/Algorithms/dijkstra.h"
 #include "graph_json.h"
+#include "../Graph/Algorithms/dijkstra.h"
 
 
 using namespace std;
