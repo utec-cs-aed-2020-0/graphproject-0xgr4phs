@@ -1,10 +1,13 @@
+#ifndef jtfloyd_h
+#define jtfloyd_h
+
 #include <iostream>
 #include <fstream>
 #include <math.h>
 #include "graph_json.h"
 #include "../Graph/Algorithms/Floyd_warshall.h"
 
-void FloyWarshallTest()
+void FloydWarshallTest()
 {
     ifstream leida("./Data/airports.json");
     string total = "";
@@ -84,3 +87,4 @@ void FloyWarshallTest()
     cout << endl
          << "finished" << endl;
 }
+#endif

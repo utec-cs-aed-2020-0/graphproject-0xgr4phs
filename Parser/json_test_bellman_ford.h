@@ -1,3 +1,6 @@
+#ifndef jtbellman_h
+#define jtbellman_h
+
 #include <iostream>
 #include <fstream>
 #include <math.h>
@@ -81,3 +84,5 @@ void BellmanFordTest()
     cout << endl
          << "finished" << endl;
 }
+
+#endif

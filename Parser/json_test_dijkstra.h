@@ -1,3 +1,6 @@
+#ifndef jtdijs_h
+#define jtdijs_h
+
 #include <iostream>
 #include <fstream>
 #include <math.h>
@@ -81,3 +84,5 @@ void DijkstraTest()
     cout << endl
          << "finished" << endl;
 }
+
+#endif
