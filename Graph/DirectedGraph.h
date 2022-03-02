@@ -10,6 +10,7 @@
 
 /* Archivos importados */
 #include "Graph.h"
+#include "./Algorithms/data_estructures/bst.h"
 
 using namespace std;
 
@@ -20,6 +21,32 @@ class DirectedGraph;
 // Funciones auxiliares
 template<typename VertexType, typename EdgeType>
 DirectedGraph<VertexType, EdgeType> greedyBFS(DirectedGraph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
+
+template<typename TE>
+struct matrix_square_pair;
+
+template<typename TV,typename TE>
+matrix_square_pair<TE> floyd_warshall(DirectedGraph<TV,TE> & g);
+
+template<typename TV,typename TE>
+deque<distance_pair<TE>> astar(DirectedGraph<TV,TE> & gr,unordered_map<string,TE> & h ,string start_node,string end_node);
+
+template<typename TV,typename TE>
+DirectedGraph<TV,TE> dijkstra(DirectedGraph<TV,TE> & , string);
+
+template<typename TV, typename TE>
+DirectedGraph<TV, TE> bellman_ford(DirectedGraph<TV, TE> grafo, const string &nodoInicio);
+template<typename TV,typename TE>
+DirectedGraph<TV, TE> kruskal(DirectedGraph<TV, TE> grafo);
+
+class DisjointSetGrafoDirigido;
+
+class DisjointSetGrafoNoDirigido;
+
+template<typename TV, typename TE>
+DirectedGraph<TV, TE> prim( DirectedGraph<TV, TE> grafo, string inicio);
+
+
 
 template<typename TV, typename TE>
 class DirectedGraph : public Graph<TV, TE> {
