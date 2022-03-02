@@ -20,9 +20,8 @@
 #include <stdexcept>
 
 /* Archivos importados */
-#include "../Graph.h"
-
-
+#include "../UndirectedGraph.h"
+#include "../DirectedGraph.h"
 /**
  * Greedy BFS
  *
@@ -63,7 +62,7 @@ UnDirectedGraph<VertexType, EdgeType> greedyBFS(UnDirectedGraph<VertexType,EdgeT
         auto* left = pq.top().second.first;
         auto* right = pq.top().second.second;
         pq.pop();
-        output.insertVertex(right->id);
+        output.insertVertex(right->id, right->data);
 //        path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n";
 
         if (right == end_vertex) break;
@@ -107,7 +106,7 @@ DirectedGraph<VertexType, EdgeType> greedyBFS(DirectedGraph<VertexType,EdgeType>
         auto* left = pq.top().second.first;
         auto* right = pq.top().second.second;
         pq.pop();
-        output.insertVertex(right->id);
+        output.insertVertex(right->id, right->data);
 //        path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n";
 
         if (right == end_vertex) break;

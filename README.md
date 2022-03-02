@@ -84,33 +84,7 @@ void uGraphMake(UndirectedGraph<string, double> &tempGraph); // Adds the parsed 
 
 void dGraphMake(DirectedGraph<string, double> &tempGraph); // Adds the parsed data into the specified directed graph
 ```
-
-## [Git Karma Guidelines](http://karma-runner.github.io/5.2/dev/git-commit-msg.html)
-
-```
-<type>(<scope>): <subject>
-
-<body>
+# How to use this repo
 ```
 
-### Allowed ```<type>``` values
-
-* feat (new feature for the user, not a new feature for build script)
-* fix (bug fix for the user, not a fix to a build script)
-* docs (changes to the documentation)
-* style (formatting, missing semi colons, etc)
-* refactor (refactoring production code, eg. renaming a variable)
-* test (adding missing tests, refactoring tests)
-* chore (updating grunt tasks etc)
-
-### Allowed ```<scope>``` values
-
-* graph
-* directedGraph
-* undirectedGraph
-* parser
-* main
-* tester
-
-
-> **PD:** Puntos extras sobre Evaluación Continua si se implementa una GUI.
+```

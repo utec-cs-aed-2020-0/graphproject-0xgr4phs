@@ -18,8 +18,8 @@
 #include <stdexcept>
 
 /* Archivos importados */
-#include "../Graph.h"
-
+#include "../UndirectedGraph.h"
+#include "../DirectedGraph.h"
 
 /**
  * DFS
@@ -63,7 +63,7 @@ UnDirectedGraph<VertexType, EdgeType> DFS(UnDirectedGraph<VertexType,EdgeType> *
         auto* right = stack_vertexes.top().second.second;
 
         stack_vertexes.pop();
-        output.insertVertex(right->id);
+        output.insertVertex(right->id, right->data);
 
         //path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n";
         for (edge_t* &edge : right->edges) {
@@ -105,7 +105,7 @@ DirectedGraph<VertexType, EdgeType> DFS(DirectedGraph<VertexType,EdgeType> *grap
         auto* right = stack_vertexes.top().second.second;
         stack_vertexes.pop();
 //        path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n";
-        output.insertVertex(right->id);
+        output.insertVertex(right->id, right->data);
         for (edge_t* &edge : right->edges) {
             auto *connected_vertex = edge->vertexes[1];
             if (!visited[connected_vertex->id]) {
