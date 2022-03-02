@@ -30,11 +30,11 @@ class Graph;
 
 /* Funciones Auxiliares */
 
-template<typename VertexType, typename EdgeType>
-std::string greedyBFS(Graph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
-
-template <typename VertexType, typename EdgeType>
-std::string DFS(Graph<VertexType,EdgeType>* graph, std::string start_node);
+//template<typename VertexType, typename EdgeType>
+//std::string greedyBFS(Graph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
+//
+//template <typename VertexType, typename EdgeType>
+//std::string DFS(Graph<VertexType,EdgeType>* graph, std::string start_node);
 
 /* Implementaciones */
 template<typename TV, typename TE>
@@ -77,12 +77,12 @@ public:
     virtual void display() = 0;
 
 private:
-    /* Declaración de funciones amigas */
-    template <typename VertexType, typename EdgeType>
-    friend std::string greedyBFS(Graph<VertexType,EdgeType>* graph, std::string start_node, std::string end_node);
-
-    template <typename VertexType, typename EdgeType>
-    friend std::string DFS(Graph<VertexType,EdgeType>* graph, std::string start_node);
+//    /* Declaración de funciones amigas */
+//    template <typename VertexType, typename EdgeType>
+//    friend Graph<VertexType,EdgeType> greedyBFS(Graph<VertexType,EdgeType>* graph, std::string start_node, std::string end_node);
+//
+//    template <typename VertexType, typename EdgeType>
+//    friend Graph<VertexType, EdgeType> DFS(Graph<VertexType,EdgeType>* graph, std::string start_node);
 };
 
 template<typename TV,typename TE>
