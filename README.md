@@ -30,41 +30,9 @@ El proyecto del curso consiste en implementar una estructura de datos de grafo y
 
 ### Tipos de grafo
 
-#### Dirigido
+- Dirigido
 
-Son grafos cuyas aristas indican hacia que sentido es posible travesar de un nodo a otro.
-
-```cpp
-template <typename TV, typename TE>
-class DirectedGraph;
-```
-
-#### No dirigido
-
-Son grafos cuyas aristas no especifican hacia que sentido es posible travesar de un nodo a otro.
-
-```cpp
-template <typename TV, typename TE>
-class DirectedGraph;
-```
-
-#### Implementación
-
-Para que nuestros algoritmos puedan acceder a todos los miembros de los grafos, fue necesario agregarlos como funciones amigas dentro de la clase y una declaración en el archivo de la clase.
-
-- **Declaración en archivo.h**
-
-```cpp
-template <typename TV, typename TE>
-DirectedGraph<TV, TE> dijkstra(DirectedGraph<TV, TE> &, string);
-```
-
-- **Declaración dentro de definición de clase**
-
-```cpp
-template <typename T, typename E>  
-friend DirectedGraph<T, E> dijkstra(DirectedGraph<T, E> &, string);
-```
+- No dirigidos
 
 ### Methodos:
 
@@ -164,8 +132,48 @@ template <typename VertexType, typename EdgeType>
 DirectedGraph<VertexType, EdgeType> DFS(DirectedGraph<VertexType, EdgeType> *graph, std::string start_node);
 ```
 
-## JSON file parser
-* Construye un grafo a partir de una archivo JSON de aereopuertos del mundo. 
+## JSON file parser (graph_json)
+- Esta clase tiene guardado como atributo un json con un grafo con cierta codificacion:
+
+```json
+ {
+
+  "0":{
+    "connections": [["1",41],["2",50],["3",40]],
+    "data" : 0
+  },
+  "1":{
+    "connections" : [],
+    "data": 1
+
+  },
+  "2":{
+    "connections": [["0",50]],
+    "data":2
+  },
+  "3":{
+    "connections": [["1",40]],
+    "data": 3
+  }
+
+}
+
+```
+Por cada nodo tiene un json con dos propiedades "connections y "data". El primero es un vector de pares con el nodo que se conecta y su peso. El segundo es el valor que tiene el nodo internamente, se usa como la información guardada del vértice (esta información de tiene que pasar como parámetro en la inserción de un vertice).
+
+### Metodos
+
+```cpp
+void readJson(string js); //lee una string de un grafo con la codificación respectiva y lo guarda en un json interno
+
+void clear(); //limpia el json interno
+
+void uGraphMake(UnDirectedGraph<TV, TE> &tempGraph); // Recibe un grafo no dirigido, lo limpia y luego inserta la información del json interno
+
+void dGraphMake(DirectedGraph<TV, TE> &tempGraph); // Recibe un grafo dirigido, lo limpia y luego inserta la información del json interno
+```
+
+Para el json interno se utilizo a la librería <a href="https://github.com/nlohmann/json">nlohmann<a/>.
 
 
 ### Methods:
