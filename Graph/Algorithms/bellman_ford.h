@@ -27,7 +27,6 @@ DirectedGraph<TV, TE> bellman_ford( DirectedGraph<TV, TE> grafo, const string &n
     DirectedGraph<TV,TE> retorno;
 
     // Nodo actual, <<distancia, peso arista>, padre>
-    //unordered_map<string, pair<TE, string>> distanciaPadre;
     unordered_map<string, pair<pair<TE,TE>, string>> distanciaPadre;
     for(auto vertice: grafo.vertexes){
         if(vertice.first == nodoInicio) distanciaPadre[vertice.first] = {{0,0}, string()};
