@@ -267,7 +267,6 @@ bool UnDirectedGraph<TV, TE>::isConnected()
 template <typename TV, typename TE>
 bool UnDirectedGraph<TV, TE>::isStronglyConnected() noexcept
 {
-  //    throw std::runtime_error("No puedes llamar a esta funcion");
   return false;
 }
 
