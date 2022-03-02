@@ -34,89 +34,98 @@
 
 /* Implementación */
 /* Implementación */
-template <typename VertexType,typename EdgeType>
-UnDirectedGraph<VertexType,EdgeType> DFS(UnDirectedGraph<VertexType,EdgeType> *graph, std::string start_node){
-    // Verificar si existen los dos vértices en el grafo
-    if (graph->findById(start_node)) std::logic_error("No se encontró el nodo incial. ");
-
-    // Variable de salida (recorrdigo del DFS)
-//    std::string path = "";
-    UnDirectedGraph<VertexType,EdgeType> output;
-    typedef Vertex<VertexType, EdgeType> vertex_t;
-    typedef Edge<VertexType, EdgeType> edge_t;
-    typedef std::pair<EdgeType, std::pair<vertex_t*, vertex_t*>> type_pair;
-
-    std::unordered_map<std::string, bool> visited(graph->V);
-    std::stack<type_pair> stack_vertexes;
-
-    Vertex<VertexType,EdgeType> *start_vertex = graph->vertexes[start_node];
-    Vertex<VertexType,EdgeType> *end_vertex= graph->vertexes[start_node];
-
-    visited[start_vertex->id] = true;
-    stack_vertexes.push(make_pair(0, std::make_pair(start_vertex, start_vertex)));
-
-    while (!stack_vertexes.empty()) {
-        auto weight = stack_vertexes.top().first;
-        auto* left = stack_vertexes.top().second.first;
-        auto* right = stack_vertexes.top().second.second;
-        stack_vertexes.pop();
-//        path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n";
-	output.insertVertex(right->id, right->data);
-	output.insertVertex(left->id, left->data);
-
-	output.createEdge(left->id, right->id,weight);        
-	for (edge_t* &edge : right->edges) {
-	  auto *connected_vertex = edge->vertexes[1];
-	  if (!visited[connected_vertex->id]) {
-	    visited[connected_vertex->id] = true;
-	    stack_vertexes.push(std::make_pair(edge->weight, std::make_pair(right, connected_vertex)));
-	  }
-	}
-    }
-    return output;
-};
-
-template <typename VertexType,typename EdgeType>
-DirectedGraph<VertexType,EdgeType> DFS(DirectedGraph<VertexType,EdgeType> *graph, std::string start_node){
+template <typename VertexType, typename EdgeType>
+UnDirectedGraph<VertexType, EdgeType> DFS(UnDirectedGraph<VertexType, EdgeType> *graph, std::string start_node)
+{
   // Verificar si existen los dos vértices en el grafo
-  if (graph->findById(start_node)) std::logic_error("No se encontró el nodo incial. ");
+  if (graph->findById(start_node))
+    std::logic_error("No se encontró el nodo incial. ");
 
   // Variable de salida (recorrdigo del DFS)
   //    std::string path = "";
-  DirectedGraph<VertexType,EdgeType> output;
+  UnDirectedGraph<VertexType, EdgeType> output;
   typedef Vertex<VertexType, EdgeType> vertex_t;
   typedef Edge<VertexType, EdgeType> edge_t;
-  typedef std::pair<EdgeType, std::pair<vertex_t*, vertex_t*>> type_pair;
+  typedef std::pair<EdgeType, std::pair<vertex_t *, vertex_t *>> type_pair;
 
   std::unordered_map<std::string, bool> visited(graph->V);
   std::stack<type_pair> stack_vertexes;
 
-  Vertex<VertexType,EdgeType> *start_vertex = graph->vertexes[start_node];
-  Vertex<VertexType,EdgeType> *end_vertex= graph->vertexes[start_node];
+  Vertex<VertexType, EdgeType> *start_vertex = graph->vertexes[start_node];
+  Vertex<VertexType, EdgeType> *end_vertex = graph->vertexes[start_node];
 
   visited[start_vertex->id] = true;
   stack_vertexes.push(make_pair(0, std::make_pair(start_vertex, start_vertex)));
 
-  while (!stack_vertexes.empty()) {
+  while (!stack_vertexes.empty())
+  {
     auto weight = stack_vertexes.top().first;
-    auto* left = stack_vertexes.top().second.first;
-    auto* right = stack_vertexes.top().second.second;
+    auto *left = stack_vertexes.top().second.first;
+    auto *right = stack_vertexes.top().second.second;
     stack_vertexes.pop();
     //        path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n";
     output.insertVertex(right->id, right->data);
     output.insertVertex(left->id, left->data);
 
-    output.createEdge(left->id, right->id,weight);
-
-    for (edge_t* &edge : right->edges) {
+    output.createEdge(left->id, right->id, weight);
+    for (edge_t *&edge : right->edges)
+    {
       auto *connected_vertex = edge->vertexes[1];
-      if (!visited[connected_vertex->id]) {
-	visited[connected_vertex->id] = true;
-	stack_vertexes.push(std::make_pair(edge->weight, std::make_pair(right, connected_vertex)));
+      if (!visited[connected_vertex->id])
+      {
+        visited[connected_vertex->id] = true;
+        stack_vertexes.push(std::make_pair(edge->weight, std::make_pair(right, connected_vertex)));
+      }
+    }
+  }
+  return output;
+};
+
+template <typename VertexType, typename EdgeType>
+DirectedGraph<VertexType, EdgeType> DFS(DirectedGraph<VertexType, EdgeType> *graph, std::string start_node)
+{
+  // Verificar si existen los dos vértices en el grafo
+  if (graph->findById(start_node))
+    std::logic_error("No se encontró el nodo incial. ");
+
+  // Variable de salida (recorrdigo del DFS)
+  //    std::string path = "";
+  DirectedGraph<VertexType, EdgeType> output;
+  typedef Vertex<VertexType, EdgeType> vertex_t;
+  typedef Edge<VertexType, EdgeType> edge_t;
+  typedef std::pair<EdgeType, std::pair<vertex_t *, vertex_t *>> type_pair;
+
+  std::unordered_map<std::string, bool> visited(graph->V);
+  std::stack<type_pair> stack_vertexes;
+
+  Vertex<VertexType, EdgeType> *start_vertex = graph->vertexes[start_node];
+  Vertex<VertexType, EdgeType> *end_vertex = graph->vertexes[start_node];
+
+  visited[start_vertex->id] = true;
+  stack_vertexes.push(make_pair(0, std::make_pair(start_vertex, start_vertex)));
+
+  while (!stack_vertexes.empty())
+  {
+    auto weight = stack_vertexes.top().first;
+    auto *left = stack_vertexes.top().second.first;
+    auto *right = stack_vertexes.top().second.second;
+    stack_vertexes.pop();
+    //        path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n";
+    output.insertVertex(right->id, right->data);
+    output.insertVertex(left->id, left->data);
+
+    output.createEdge(left->id, right->id, weight);
+
+    for (edge_t *&edge : right->edges)
+    {
+      auto *connected_vertex = edge->vertexes[1];
+      if (!visited[connected_vertex->id])
+      {
+        visited[connected_vertex->id] = true;
+        stack_vertexes.push(std::make_pair(edge->weight, std::make_pair(right, connected_vertex)));
       }
     }
   }
   return output;
 };
 #endif // GREEDYBFS_H
-
