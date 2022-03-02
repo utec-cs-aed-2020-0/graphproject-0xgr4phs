@@ -68,17 +68,19 @@ friend DirectedGraph<T, E> dijkstra(DirectedGraph<T, E> &, string);
 ### Methodos:
 
 ```cpp
-bool insertVertex(string id, V data); // Creates a new vertex in the graph with some data and an ID
+bool insertVertex(string id, TV data); // Creates a new vertex in the graph with some data and an ID
 
-bool createEdge(string start, string end, E data); // Creates a new edge in the graph with some data
+bool createEdge(string start, string end, TE data); // Creates a new edge in the graph with some data
 
 bool deleteVertex(string id); // Deletes a vertex in the graph
 
 bool deleteEdge(string start, string end); // Deletes an edge in the graph, it is not possible to search by the edge value, since it can be repeated
 
-E &operator()(string start, string end); // Gets the value of the edge from the start and end vertexes
+TE &operator()(string start, string end); // Gets the value of the edge from the start and end vertexes
 
-float density() const; // Calculates the density of the graph
+float density(); // Calculates the density of the graph
+
+float isDense(float threshold = 0.5); // Calculates density using threshold
 
 bool isDense(float threshold = 0.5) const; // Calculates the density of the graph, and determine if it is dense dependening on a threshold value
 
@@ -89,6 +91,13 @@ bool isStronglyConnected(); // Detect if the graph is strongly connected (creado
 bool empty(); // If the graph is empty
 
 void clear(); // Clears the graph
+
+void displayVertex(string id); //Displays edged from id vertex
+
+bool findById(std::string id) = 0; //Returns true if id vertex is on graph
+
+void display(); //Displays edges from all vertexes
+
 ```
 
 ### Algorithms:
