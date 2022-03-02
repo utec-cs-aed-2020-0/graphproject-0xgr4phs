@@ -4,12 +4,11 @@
 #include "graph_json.h"
 #include "../Graph/Algorithms/Bellman_Ford.h"
 
-
 using namespace std;
 using nlohmann::json;
 
-
-int main(){ 
+int main()
+{
   ifstream leida("./Data/airports.json");
   string total = "";
   string result;
@@ -17,16 +16,17 @@ int main(){
   json aeropuertos_grafo = json({});
   json lon_lat = json({});
 
-
-  while((leida>>result)){
-    total+=result;
+  while ((leida >> result))
+  {
+    total += result;
   }
 
   /* cout<<total; */
   aeropuertos_completo = json::parse(total);
   /* cout<<aeropuertos_completo.dump(2); */
 
-  for(int i = 0;i< aeropuertos_completo.size();++i){
+  for (int i = 0; i < aeropuertos_completo.size(); ++i)
+  {
     string id = aeropuertos_completo[i]["AirportID"];
 
     aeropuertos_grafo[id] = R"(
@@ -38,71 +38,56 @@ int main(){
 
     aeropuertos_grafo[id]["data"] = nombre;
 
-
     string lon = aeropuertos_completo[i]["Longitude"];
     string lat = aeropuertos_completo[i]["Latitude"];
 
-    lon_lat[id] =  {{"lon",lon},{"lat",lat}}; 
-
-
-
-
-
+    lon_lat[id] = {{"lon", lon}, {"lat", lat}};
   }
 
-
-  for(int i = 0;i< aeropuertos_completo.size();++i){
+  for (int i = 0; i < aeropuertos_completo.size(); ++i)
+  {
     string id = aeropuertos_completo[i]["AirportID"];
-    for(int j = 0;j< aeropuertos_completo[i]["destinations"].size();++j){
+    for (int j = 0; j < aeropuertos_completo[i]["destinations"].size(); ++j)
+    {
       string dest = aeropuertos_completo[i]["destinations"][j];
-      if(aeropuertos_grafo.find(dest) != aeropuertos_grafo.end()){
-	try{
-	float lon_actual = stof( (string) lon_lat[id]["lon"]);
-	float lat_actual = stof( (string) lon_lat[id]["lat"]);
-	float lon_dest = stof( (string) lon_lat[dest]["lon"]);
-	float lat_dest = stof( (string) lon_lat[dest]["lat"]);
-	float distancia = sqrt( (lon_actual - lon_dest)*(lon_actual - lon_dest)
-				+ (lat_actual - lat_dest)*(lat_actual - lat_dest) );
+      if (aeropuertos_grafo.find(dest) != aeropuertos_grafo.end())
+      {
+        try
+        {
+          float lon_actual = stof((string)lon_lat[id]["lon"]);
+          float lat_actual = stof((string)lon_lat[id]["lat"]);
+          float lon_dest = stof((string)lon_lat[dest]["lon"]);
+          float lat_dest = stof((string)lon_lat[dest]["lat"]);
+          float distancia = sqrt((lon_actual - lon_dest) * (lon_actual - lon_dest) + (lat_actual - lat_dest) * (lat_actual - lat_dest));
 
-	aeropuertos_grafo[id]["connections"].push_back(
-	    json::array({dest,distancia}));
-	}catch(invalid_argument x){
-	  cout<<lon_lat[id]["lon"]<<endl;
-	  cout<<lon_lat[id]["lat"]<<endl;
-	  cout<<lon_lat[dest]["lon"]<<endl;
-	  cout<<lon_lat[dest]["lat"]<<endl;
-
-	}
-
-
-
+          aeropuertos_grafo[id]["connections"].push_back(
+              json::array({dest, distancia}));
+        }
+        catch (invalid_argument x)
+        {
+          cout << lon_lat[id]["lon"] << endl;
+          cout << lon_lat[id]["lat"] << endl;
+          cout << lon_lat[dest]["lon"] << endl;
+          cout << lon_lat[dest]["lat"] << endl;
+        }
       }
-
     }
-
-
-
-
-
   }
-
 
   result = aeropuertos_grafo.dump(2);
   /* cout<<result; */
 
-  DirectedGraph<string,float> grafito;
-  graph_json<string,float> grafito_parser;
+  DirectedGraph<string, float> grafito;
+  graph_json<string, float> grafito_parser;
   grafito_parser.readJSON(result);
   grafito_parser.dGraphMake(grafito);
 
-
-  bellman_ford(grafito,"94").display();
+  bellman_ford(grafito, "94").display();
 
   /* dijkstra(grafito, "2789").display(); */
 
-
-  cout<<endl<<"finished"<<endl;
+  cout << endl
+       << "finished" << endl;
 
   return 0;
 }
-
