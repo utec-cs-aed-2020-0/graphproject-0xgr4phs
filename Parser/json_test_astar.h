@@ -1,6 +1,15 @@
 #ifndef jtastar_h
 #define jtastar_h
+#include <iostream>
+#include <fstream>
+#include <math.h>
+#include "graph_json.h"
+#include "../Graph/Algorithms/GreedyBFS.h"
+#include "../Graph/Algorithms/Astar.h"
 
+
+using namespace std;
+using nlohmann::json;
 void AstarTest(){
 ifstream leida("./Data/airports.json");
   string total = "";
