@@ -11,7 +11,9 @@
 
 function<void(void)> tests[8]{AstarTest, BellmanFordTest, DFSTest, DijkstraTest, FloydWarshallTest, GreedyBFSTest, KruskalTest, PrimTest};
 
+using nlohmann::json;
 using namespace std;
+
 
 int main(int argc, char *argv[]) {
 
@@ -19,6 +21,7 @@ int main(int argc, char *argv[]) {
     std::cout << "MENU GRAPH TESTER" << std::endl;
     std::cout << "================================================" << std::endl;
     int i;
+    try{
     do
     {
         cout<<"Elija la opcion para realizar una prueba utilizando un algorimto:"<<endl;
@@ -27,6 +30,10 @@ int main(int argc, char *argv[]) {
         cin>>i;
         tests[i]();
     }while(i>=0 && i<8);    
+    }
+    catch(const char* error){
+        cout<<error<<endl;
+    }
     cout<<"ADIOS"<<endl;
 
     return EXIT_SUCCESS; 

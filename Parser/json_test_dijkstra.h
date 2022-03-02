@@ -7,9 +7,12 @@
 #include "graph_json.h"
 #include "../Graph/Algorithms/Dijkstra.h"
 
+using namespace std;
+using nlohmann::json;
+
 void DijkstraTest()
 {
-    ifstream leida("./Data/airports.json");
+    ifstream leida("./Parser/Data/airports.json");
     string total = "";
     string result;
     json aeropuertos_completo;
