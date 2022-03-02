@@ -1,73 +1,73 @@
-#ifndef DIRECTEDGRAPH_H
-#define DIRECTEDGRAPH_H
+//
+//        /$$   /$$                 /$$ /$$                                 /$$                     /$$  /$$$$$$                               /$$           /$$
+//        | $$  | $$                | $$|__/                                | $$                    | $$ /$$__  $$                             | $$          | $$
+//        | $$  | $$ /$$$$$$$   /$$$$$$$ /$$  /$$$$$$   /$$$$$$   /$$$$$$$ /$$$$$$    /$$$$$$   /$$$$$$$| $$  \__/  /$$$$$$  /$$$$$$   /$$$$$$ | $$$$$$$     | $$$$$$$
+//        | $$  | $$| $$__  $$ /$$__  $$| $$ /$$__  $$ /$$__  $$ /$$_____/|_  $$_/   /$$__  $$ /$$__  $$| $$ /$$$$ /$$__  $$|____  $$ /$$__  $$| $$__  $$    | $$__  $$
+//        | $$  | $$| $$  \ $$| $$  | $$| $$| $$  \__/| $$$$$$$$| $$        | $$    | $$$$$$$$| $$  | $$| $$|_  $$| $$  \__/ /$$$$$$$| $$  \ $$| $$  \ $$    | $$  \ $$
+//        | $$  | $$| $$  | $$| $$  | $$| $$| $$      | $$_____/| $$        | $$ /$$| $$_____/| $$  | $$| $$  \ $$| $$      /$$__  $$| $$  | $$| $$  | $$    | $$  | $$
+//        |  $$$$$$/| $$  | $$|  $$$$$$$| $$| $$      |  $$$$$$$|  $$$$$$$  |  $$$$/|  $$$$$$$|  $$$$$$$|  $$$$$$/| $$     |  $$$$$$$| $$$$$$$/| $$  | $$ /$$| $$  | $$
+//        \______/ |__/  |__/ \_______/|__/|__/       \_______/ \_______/   \___/   \_______/ \_______/ \______/ |__/      \_______/| $$____/ |__/  |__/|__/|__/  |__/
+//                                                                                                                                    | $$
+//                                                                                                                                    | $$
+//                                                                                                                                    |__/
 
-/* Dependencias */
-#include <iostream>
-#include <algorithm>
+#ifndef UNDIRECTEDGRAPH_H
+#define UNDIRECTEDGRAPH_H
+
+#include <string>
 #include <queue>
 #include <unordered_set>
-#include <deque>
-
-/* Archivos importados */
+#include <algorithm>
 #include "Graph.h"
 #include "./Algorithms/data_structures/bst.h"
 
-using namespace std;
+/* Declaraciones de clases y funciones */
 
-/* Declaración de clases y funciones */
 template<typename TV, typename TE>
-class DirectedGraph;
+class UnDirectedGraph;
 
 // Funciones auxiliares
+template <typename VertexType, typename EdgeType>
+UnDirectedGraph<VertexType,EdgeType> DFS(UnDirectedGraph<VertexType,EdgeType>* graph, std::string start_node);
+
 template<typename VertexType, typename EdgeType>
-DirectedGraph<VertexType,EdgeType> greedyBFS(DirectedGraph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
+UnDirectedGraph<VertexType,EdgeType> greedyBFS(UnDirectedGraph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
+
+template<typename TV,typename TE>
+UnDirectedGraph<TV,TE> dijkstra(UnDirectedGraph<TV,TE> & , string);
+
+template<typename TV,typename TE>
+deque<distance_pair<TE>> astar(UnDirectedGraph<TV,TE> & gr,unordered_map<string,TE> & h ,string start_node,string end_node);
 
 template<typename TE>
 struct matrix_square_pair;
 
 template<typename TV,typename TE>
-matrix_square_pair<TE> floyd_warshall(DirectedGraph<TV,TE> & g);
-
-template<typename TV,typename TE>
-deque<distance_pair<TE>> astar(DirectedGraph<TV,TE> & gr,unordered_map<string,TE> & h ,string start_node,string end_node);
-
-template<typename TV,typename TE>
-DirectedGraph<TV,TE> dijkstra(DirectedGraph<TV,TE> & , string);
+matrix_square_pair<TE> floyd_warshall(UnDirectedGraph<TV,TE> & g);
 
 template<typename TV, typename TE>
-DirectedGraph<TV, TE> bellman_ford(DirectedGraph<TV, TE> grafo, const string &nodoInicio);
+UnDirectedGraph<TV, TE> bellman_ford(UnDirectedGraph<TV, TE> grafo, const string &nodoInicio);
 template<typename TV,typename TE>
-DirectedGraph<TV, TE> kruskal(DirectedGraph<TV, TE> grafo);
-
-template <typename VertexType, typename EdgeType>
-DirectedGraph<VertexType,EdgeType> DFS(DirectedGraph<VertexType,EdgeType>* graph, std::string start_node);
-
+UnDirectedGraph<TV, TE> kruskal(UnDirectedGraph<TV, TE> grafo);
 class DisjointSetGrafoDirigido;
-
 class DisjointSetGrafoNoDirigido;
+template<typename TV, typename TE>
+UnDirectedGraph<TV, TE> prim(UnDirectedGraph<TV, TE> grafo, string inicio);
 
 template<typename TV, typename TE>
-DirectedGraph<TV, TE> prim( DirectedGraph<TV, TE> grafo, string inicio);
-
-
-
-template<typename TV, typename TE>
-class DirectedGraph : public Graph<TV, TE> {
+class UnDirectedGraph : public Graph<TV, TE> {
 public:
-    DirectedGraph() = default;
-    DirectedGraph(const unordered_map<string, Vertex<TV, TE> *
+    UnDirectedGraph() = default;
 
-    > &vertexes);
+    bool insertVertex(std::string id, TV vertex) override;
 
-    bool insertVertex(string id, TV vertex) override;
+    bool createEdge(std::string id1, std::string id2, TE w) override;
 
-    bool createEdge(string id1, string id2, TE w) override;
+    bool deleteVertex(std::string id) override;
 
-    bool deleteVertex(string id) override;
+    bool deleteEdge(std::string start, std::string end) override;
 
-    bool deleteEdge(string id1, string id2) override;
-
-    TE &operator()(string start, string end) override;
+    TE &operator()(std::string start, std::string end) override;
 
     float density() override;
 
@@ -75,65 +75,62 @@ public:
 
     bool isConnected() override;
 
-    bool isStronglyConnected() throw() override;
+    bool isStronglyConnected() noexcept override;
 
     bool empty() override;
 
     void clear() override;
 
-    void displayVertex(string id) override;
+    void displayVertex(std::string id) override;
 
-    bool findById(string id) override;
+    bool findById(std::string id) override;
 
     void display() override;
+
 private:
-//    template<typename VertexType, typename EdgeType>
-//      friend DirectedGraph<VertexType, EdgeType> greedyBFS(DirectedGraph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
-    template <typename VertexType, typename EdgeType>
-    friend DirectedGraph<VertexType,EdgeType> DFS(DirectedGraph<VertexType,EdgeType>* graph, std::string start_node);
+    /* Declaración de funciones amigas */
+   template<typename T,typename E>
+     friend UnDirectedGraph<T, E> dijkstra(UnDirectedGraph<T,E>&,string);
+
+   template<typename T,typename E>
+     friend deque<distance_pair<E>> astar(UnDirectedGraph<T,E> & gr,unordered_map<string,E> & h ,string start_node,string end_node);
+
+   template<typename T,typename E>
+     friend matrix_square_pair<E> floyd_warshall(UnDirectedGraph<T,E> & g);
+
+   template<typename TVf,typename TEf>
+     friend UnDirectedGraph<TVf, TEf> bellman_ford(UnDirectedGraph<TVf, TEf> grafo, const string &nodoInicio);
+   template<typename TVf,typename TEf>
+     friend UnDirectedGraph<TVf, TEf> kruskal(UnDirectedGraph<TVf, TEf> grafo);
+   friend class DisjointSetGrafoDirigido;
+   friend class DisjointSetGrafoNoDirigido;
+   template<typename TVf,typename TEf>
+     friend UnDirectedGraph<TVf, TEf> prim(UnDirectedGraph<TVf, TEf> grafo, string inicio);
 
     template<typename VertexType, typename EdgeType>
-    friend DirectedGraph<VertexType,EdgeType> greedyBFS(DirectedGraph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
+    friend UnDirectedGraph<VertexType,EdgeType> greedyBFS(UnDirectedGraph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
 
-    template<typename T,typename E> 
-      friend DirectedGraph<T, E> dijkstra(DirectedGraph<T,E>&,string);
-    template<typename T,typename E> 
-      friend  deque<distance_pair<E>> astar(DirectedGraph<T,E> & ,unordered_map<string,E> & , string ,string );
-    template<typename T,typename E>
-      friend matrix_square_pair<E> floyd_warshall(DirectedGraph<T,E> & g);
-
-    template<typename TVf,typename TEf>
-      friend DirectedGraph<TVf, TEf> bellman_ford(DirectedGraph<TVf, TEf> grafo, const string &nodoInicio);
-    template<typename TVf,typename TEf>
-      friend DirectedGraph<TVf, TEf> kruskal(DirectedGraph<TVf, TEf> grafo);
-    friend class DisjointSetGrafoDirigido;
-    friend class DisjointSetGrafoNoDirigido;
-    template<typename TVf,typename TEf>
-      friend DirectedGraph<TVf, TEf> prim(DirectedGraph<TVf, TEf> grafo, string inicio);
-
-
+    template <typename VertexType, typename EdgeType>
+    friend UnDirectedGraph<VertexType,EdgeType> DFS(UnDirectedGraph<VertexType,EdgeType> *graph, std::string start_node);
 };
 
 template<typename TV, typename TE>
-DirectedGraph<TV, TE>::DirectedGraph(const unordered_map<string, Vertex<TV, TE> *> &vertexes) {
-  this->vertexes = vertexes;
-}
+bool UnDirectedGraph<TV, TE>::insertVertex(std::string id, TV vertex) {
+  // Verify if vertex exists
+  if(this->vertexes.find(id) != this->vertexes.end()) return false;
+  this->vertexes[id] = new Vertex<TV,TE>{id,vertex,std::list<Edge<TV,TE>*>{}};
+  this->V++;
 
-template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::insertVertex(string id, TV vertex) {
-  if (this->vertexes.find(id) != this->vertexes.end()) return false;
-
-  this->vertexes[id] = new Vertex<TV, TE>{id, vertex, std::list<Edge<TV, TE> *>{}};
-
-  ++this->V;
   return true;
 }
 
 template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w) {
-  if (this->vertexes.find(id1) == this->vertexes.end() ||
-      this->vertexes.find(id2) == this->vertexes.end())
+bool UnDirectedGraph<TV, TE>::createEdge(std::string id1, std::string id2, TE w) {
+  // Verify if edge exists
+  if (this->vertexes.find(id1) == this->vertexes.end()
+      || this->vertexes.find(id2) == this->vertexes.end())
     return false;
+
   auto v1 = this->vertexes[id1];
   auto v2 = this->vertexes[id2];
 
@@ -141,51 +138,54 @@ bool DirectedGraph<TV, TE>::createEdge(string id1, string id2, TE w) {
     if ((*it)->vertexes[1] == v2) return false;
   }
 
-  v1->edges.push_front(new Edge<TV, TE>{{v1, v2}, w});
+  auto edge1 = new Edge<TV, TE>{{v1, v2}, w};
+  auto edge2 = new Edge<TV, TE>{{v2, v1}, w};
+  v1->edges.push_front(edge1);
+  v2->edges.push_front(edge2);
 
-  ++this->E;
+  this->E++;
+
   return true;
 }
 
 template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::deleteVertex(string id) {
+bool UnDirectedGraph<TV, TE>::deleteVertex(std::string id) {
   if (this->vertexes.find(id) == this->vertexes.end()) return false;
+
   auto v = this->vertexes[id];
-  for (auto it = v->edges.begin(); it != v->edges.end(); ++it) {
-
-    delete *it;
-    --this->E;
+  while (v->edges.size() != 0) {
+    deleteEdge((*(v->edges.begin()))->vertexes[0]->id, (*(v->edges.begin()))->vertexes[1]->id);
   }
-  v->edges.clear();
-
-  for (auto it = this->vertexes.begin(); it != this->vertexes.end(); ++it)
-    if (it->first != id)
-      deleteEdge(it->first, id);
-
 
   delete this->vertexes[id];
   this->vertexes.erase(id);
-
   --this->V;
 
   return true;
 }
 
 template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::deleteEdge(string id1, string id2) {
-  if (this->vertexes.find(id1) == this->vertexes.end() ||
-      this->vertexes.find(id2) == this->vertexes.end())
+bool UnDirectedGraph<TV, TE>::deleteEdge(std::string start, std::string end) {
+  if (this->vertexes.find(start) == this->vertexes.end() ||
+      this->vertexes.find(end) == this->vertexes.end())
     return false;
 
-  auto inicio = this->vertexes[id1];
-  auto llegada = this->vertexes[id2];
-
+  auto inicio = this->vertexes[start];
+  auto llegada = this->vertexes[end];
 
   for (auto it = inicio->edges.begin(); it != inicio->edges.end(); ++it) {
     if ((*it)->vertexes[1] == llegada) {
-      delete *it;
       inicio->edges.erase(it);
+      delete *it;
+      break;
+    }
+  }
+
+  for (auto it = llegada->edges.begin(); it != llegada->edges.end(); ++it) {
+    if ((*it)->vertexes[1] == inicio) {
+      llegada->edges.erase(it);
       --this->E;
+      delete *it;
       return true;
     }
   }
@@ -193,113 +193,112 @@ bool DirectedGraph<TV, TE>::deleteEdge(string id1, string id2) {
 }
 
 template<typename TV, typename TE>
-TE &DirectedGraph<TV, TE>::operator()(string start, string end) {
-  if(this->vertexes.find(start) == this->vertexes.end()  ||
-      this->vertexes.find(end) == this->vertexes.end()) throw "No se encuentra uno o ambos vertices";
+TE &UnDirectedGraph<TV, TE>::operator()(std::string start, std::string end) {
+  if (this->vertexes.find(start) == this->vertexes.end() ||
+      this->vertexes.find(end) == this->vertexes.end())
+    throw std::runtime_error("No se encuentra uno o ambos vertices");
+
   auto inicio = this->vertexes[start];
   auto llegada = this->vertexes[end];
 
-
-  for(auto it = inicio->edges.begin();it!= inicio->edges.end();++it){
-    if((*it)->vertexes[1] == llegada) return (*it)->weight;
-
+  for (auto it = inicio->edges.begin(); it != inicio->edges.end(); ++it) {
+    if ((*it)->vertexes[1] == llegada)
+      return (*it)->weight;
   }
 
-  throw "No se encuentra la arista";
+  throw std::runtime_error("No se encuentra la arista");
 }
 
 template<typename TV, typename TE>
-float DirectedGraph<TV, TE>::density() {
-  return this->E / (this->V * (this->V - 1));
+float UnDirectedGraph<TV, TE>::density() {
+  return (2 * this->E) / (this->V * (this->V - 1));
 }
 
 template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::isDense(float threshold) {
+bool UnDirectedGraph<TV, TE>::isDense(float threshold) {
   return density() >= threshold;
 }
 
 template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::isConnected() {
+bool UnDirectedGraph<TV, TE>::isConnected() {
+
+  std::unordered_set<std::string> visitados;
+  std::queue<std::string> ayuda;
+
+  ayuda.push(this->vertexes.begin()->first);
+  visitados.insert(this->vertexes.begin()->first);
+
+  while (!ayuda.empty()) {
+    auto actual = ayuda.front();
+    ayuda.pop();
+    for (auto it = this->vertexes[actual]->edges.begin(); it != this->vertexes[actual]->edges.end(); ++it) {
+      auto v = (*it)->vertexes[1]->id;
+      if (visitados.find(v) == visitados.end()) {
+	ayuda.push(v);
+	visitados.insert(v);
+      }
+    }
+  }
+
+  return visitados.size() == this->V;
+}
+
+template<typename TV, typename TE>
+bool UnDirectedGraph<TV, TE>::isStronglyConnected() noexcept {
+  //    throw std::runtime_error("No puedes llamar a esta funcion");
   return false;
 }
 
 template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::isStronglyConnected() throw() {
-  unordered_set<string> visitados;
-  queue<string> ayuda;
-  for (auto it = this->vertexes.begin(); it != this->vertexes.end(); ++it) {
-    auto v = it->second;
-    ayuda.push(v->id);
-    visitados.insert(v->id);
-    while (!ayuda.empty()) {
-      auto temp = ayuda.front();
-      ayuda.pop();
-      for (auto it = this->vertexes[temp]->edges.begin(); it != this->vertexes[temp]->edges.end(); ++it) {
-	auto a_insertar = (*it)->vertexes[1]->id;
-	if (visitados.find(a_insertar) == visitados.end()) {
-	  ayuda.push(a_insertar);
-	  visitados.insert(a_insertar);
-	}
-      }
-    }
-    if (visitados.size() != this->V) return false;
-    visitados.clear();
-  }
-  return true;
-}
-
-template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::empty() {
+bool UnDirectedGraph<TV, TE>::empty() {
   return this->V == 0;
 }
 
 template<typename TV, typename TE>
-void DirectedGraph<TV, TE>::clear() {
+void UnDirectedGraph<TV, TE>::clear() {
   while (this->vertexes.size() != 0) {
-
     deleteVertex(this->vertexes.begin()->first);
-
   }
 }
 
 template<typename TV, typename TE>
-void DirectedGraph<TV, TE>::displayVertex(string id) {
-  if (this->vertexes.find(id) == this->vertexes.end()) throw "No se encuentra ese vertice";
+void UnDirectedGraph<TV, TE>::displayVertex(std::string id) {
+  if (this->vertexes.find(id) == this->vertexes.end()) throw std::runtime_error("No se encuentra ese vertice");
+
   auto v = this->vertexes[id];
-  cout << "Las aristas de " << v->id << " son: ";
+  std::cout << "Las aristas de " << v->id << " son: ";
+
   for (auto it = v->edges.begin(); it != v->edges.end(); ++it) {
-    cout << "({" << (*it)->vertexes[0]->id << "," << (*it)->vertexes[1]->id << "}, w: " << (*it)->weight << ") ";
+    std::cout << "({" << (*it)->vertexes[0]->id << "," << (*it)->vertexes[1]->id << "}, w: " << (*it)->weight
+      << ") ";
   }
-  cout << endl;
+  std::cout << "\n";
 }
 
 template<typename TV, typename TE>
-bool DirectedGraph<TV, TE>::findById(string id) {
+bool UnDirectedGraph<TV, TE>::findById(std::string id) {
   return this->vertexes.find(id) != this->vertexes.end();
 }
 
 template<typename TV, typename TE>
-void DirectedGraph<TV, TE>::display() {
+void UnDirectedGraph<TV, TE>::display() {
   vector<string> keys;
-
-
-  for (auto it = this->vertexes.begin(); it != this->vertexes.end(); ++it) {
+  for(auto it = this->vertexes.begin();it != this->vertexes.end();++it){
     keys.push_back(it->first);
-
   }
 
-  sort(keys.begin(), keys.end());
-  for (auto &i: keys) {
+  sort(keys.begin(),keys.end());
+
+  for(auto&i: keys) {
     auto v = this->vertexes[i];
-    cout << "Las aristas de " << v->id << " son: ";
-    for (auto it = v->edges.begin(); it != v->edges.end(); ++it) {
-      cout << "({" << (*it)->vertexes[0]->id << "," << (*it)->vertexes[1]->id << "}, w: " << (*it)->weight
-	<< ") ";
+    cout<<"Las aristas de "<<v->id<<" son: ";
+    for(auto it = v->edges.begin(); it != v->edges.end();++it) {
+      cout<<"({"<<(*it)->vertexes[0]->id<<","<<(*it)->vertexes[1]->id<<"}, w: "<<(*it)->weight<<") ";
     }
-    cout << endl;
+    cout<<endl;
   }
-
-
 }
 
-#endif // DIRECTEDGRAPH_H
+
+
+#endif // UNDIRECTEDGRAPH_H
