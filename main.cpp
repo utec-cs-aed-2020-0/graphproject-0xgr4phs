@@ -1,17 +1,40 @@
 #include <iostream>
 
-#include "Tester/tester.h"
-#include "Parser/parser.h"
+#include "Parser/json_test_astar.h"
+#include "Parser/json_test_bellman_ford.h"
+#include "Parser/json_test_dfs.h"
+#include "Parser/json_test_dijkstra.h"
+#include "Parser/json_test_floyd_warshall.h"
+#include "Parser/json_test_greedy_bfs.h"
+#include "Parser/json_test_kruskal.h"
+#include "Parser/json_test_prim.h"
 
+function<void(void)> tests[8]{AstarTest, BellmanFordTest, DFSTest, DijkstraTest, FloydWarshallTest, GreedyBFSTest, KruskalTest, PrimTest};
+
+using nlohmann::json;
 using namespace std;
 
+
 int main(int argc, char *argv[]) {
+
     std::cout << "================================================" << std::endl;
     std::cout << "MENU GRAPH TESTER" << std::endl;
     std::cout << "================================================" << std::endl;
-    
-    Tester::executeExamples();
-    Tester::executeParser();
-    
-    return EXIT_SUCCESS;
+    int i;
+    try{
+    do
+    {
+        cout<<"Elija la opcion para realizar una prueba utilizando un algorimto:"<<endl;
+        cout<<"0: Astar\n1: Bellman-ford\n2: DFS\n3: Dijkstra\n4: Floyd-warshall\n5: GreedyBFS\n6: Kruskal\n7: Prim"<<endl;
+        cout<<"Opcion: ";
+        cin>>i;
+        tests[i]();
+    }while(i>=0 && i<8);    
+    }
+    catch(const char* error){
+        cout<<error<<endl;
+    }
+    cout<<"ADIOS"<<endl;
+
+    return EXIT_SUCCESS; 
 }
