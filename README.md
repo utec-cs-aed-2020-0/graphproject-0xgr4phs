@@ -62,6 +62,52 @@ void clear(); // Clears the graph
 ```
 
 ### Algorithms:
+
+#### Algoritmo Belman-Ford 
+Consta de un algoritmo con el objetivo de encontrar la ruta más corta entre un nodo y los restantes. Al igual que el algoritmo Dijkstra, se basa en la comparación de distancias y asignación de padres. La única diferencia es que la evaluación de aquello se realiza mediante la iteración de todas las aristas en el grafo por una cantidad $|V|-1$. Ya que no depende de la partida de vertices, es posible trabajar con grafos con pesos negativos. 
+
+![](img/bf.gif)
+
+Este algoritmo es principalmente utilizado con grafos dirigidos, ya que si se tratase de aplicar en un grafo no dirigido y este contase con una arista de peso negativa, existiría un bucle que tras cada iteración ocasionaría la disminución en la distancia. 
+
+Presenta un complejidad de $O(|E|*|V|)$.
+
+```cpp
+template <typename TV, typename TE>
+DirectedGraph<TV, TE> bellman_ford(DirectedGraph<TV, TE> grafo, const string &nodoInicio);
+```
+
+En nuestra implementación, se retorna un grafo dirigido el cual presenta las aristas que permiten el menor peso para llegar a todos los vértices.
+
+#### Algoritmo Kruskal
+Consta de un algoritmo para hallar un árbol mínimo de expansión en un grafo. Se basa en recorrer las aristas de forma ascendente dependiendo de sus pesos sin crear ciclos en el proceso. Esto se realiza mediante un disjoint set.
+
+![](img/kk.gif)
+
+Presenta un complejidad de $O(E\log V)$
+
+```cpp
+template <typename TV, typename TE>
+UnDirectedGraph<TV, TE> kruskal(UnDirectedGraph<TV, TE> grafo)
+```
+
+En nuestra implementación, considerando de que Kruskal puede identificar ciclos en grafos dirigidos cuando las direcciones determinan lo contrario, entonces solo se retornará un grafo no dirigido.
+
+#### Algoritmo Prim
+
+Es un algoritmo de obtención de un árbol de expansión mínima el cual se enfoca en aglomerar a un grafo las aristas con menor tamaño tras recorrer vértices por media de las aristas. Sabiendo que no se deben formar ciclos, requerimos la ayuda de un disjoint set.
+
+![](img/pr.gif)
+
+Su complejidad es $O(V^2)$.
+
+```cpp
+template <typename TV, typename TE>
+UnDirectedGraph<TV, TE> prim(UnDirectedGraph<TV, TE> grafo, string inicio);
+```
+
+Sabiendo que solo se pueden recorrer vértices si existe una conexión dirigida entre ellos, existen casos donde no será posible llegar a todos los vértices. Por ende, no podrá obtenerse un arbol de expansión mínima. Por ese motivo, solo se utiliza para el caso de grafos no dirigidos.
+
 ```cpp
 //Given the graph
 UndirectedGraph<char, int> graph;
