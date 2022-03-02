@@ -20,7 +20,7 @@ class DirectedGraph;
 
 // Funciones auxiliares
 template<typename VertexType, typename EdgeType>
-DirectedGraph<VertexType, EdgeType> greedyBFS(DirectedGraph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
+DirectedGraph<VertexType,EdgeType> greedyBFS(DirectedGraph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
 
 template<typename TE>
 struct matrix_square_pair;
@@ -84,8 +84,10 @@ public:
 
     void display() override;
 private:
+//    template<typename VertexType, typename EdgeType>
+//      friend DirectedGraph<VertexType, EdgeType> greedyBFS(DirectedGraph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
     template<typename VertexType, typename EdgeType>
-      friend DirectedGraph<VertexType, EdgeType> greedyBFS(DirectedGraph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
+    friend DirectedGraph<VertexType,EdgeType> greedyBFS(DirectedGraph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
 
     template<typename T,typename E> 
       friend DirectedGraph<T, E> dijkstra(DirectedGraph<T,E>&,string);
