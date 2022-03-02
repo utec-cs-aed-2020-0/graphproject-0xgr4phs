@@ -96,7 +96,7 @@ void clear(); // Clears the graph
 #### Algoritmo Dijkstra
 Busca la distancia más corta de un vértice a todos los demas. Va agarrando el nodo con la distancia mínima del padre, lo visita y luego ve a sus vecinos. Si la distancia para ir a un vecino desde el nodo elegido es menor a la distancia actual, se cambia la distancia y se elije un nuevo padre.
 
-![](img/dj.gif)
+![](img/Dijkstra_Animation.gif)
 
 Este algoritmo funciona para grafos dirigidos y no dirigidos.
 
