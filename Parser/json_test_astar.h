@@ -11,7 +11,7 @@
 using namespace std;
 using nlohmann::json;
 void AstarTest(){
-ifstream leida("./Data/airports.json");
+ifstream leida("./Parser/Data/airports.json");
   string total = "";
   string result;
   json aeropuertos_completo;
