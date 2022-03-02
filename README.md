@@ -30,9 +30,41 @@ El proyecto del curso consiste en implementar una estructura de datos de grafo y
 
 ### Tipos de grafo
 
-- Dirigido
+#### Dirigido
 
-- No dirigidos
+Son grafos cuyas aristas indican hacia que sentido es posible travesar de un nodo a otro.
+
+```cpp
+template <typename TV, typename TE>
+class DirectedGraph;
+```
+
+#### No dirigido
+
+Son grafos cuyas aristas no especifican hacia que sentido es posible travesar de un nodo a otro.
+
+```cpp
+template <typename TV, typename TE>
+class DirectedGraph;
+```
+
+#### Implementación
+
+Para que nuestros algoritmos puedan acceder a todos los miembros de los grafos, fue necesario agregarlos como funciones amigas dentro de la clase y una declaración en el archivo de la clase.
+
+- **Declaración en archivo.h**
+
+```cpp
+template <typename TV, typename TE>
+DirectedGraph<TV, TE> dijkstra(DirectedGraph<TV, TE> &, string);
+```
+
+- ** Declaración dentro de definición de clase**
+
+```cpp
+template <typename T, typename E>  
+friend DirectedGraph<T, E> dijkstra(DirectedGraph<T, E> &, string);
+```
 
 ### Methodos:
 
