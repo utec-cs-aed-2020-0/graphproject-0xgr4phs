@@ -74,10 +74,10 @@ void BellmanFordTest()
 
     result = aeropuertos_grafo.dump(2);
 
-    UnDirectedGraph<string, float> grafito;
+    DirectedGraph<string, float> grafito;
     graph_json<string, float> grafito_parser;
     grafito_parser.readJSON(result);
-    grafito_parser.uGraphMake(grafito);
+    grafito_parser.dGraphMake(grafito);
 
     bellman_ford(grafito, "94").display();
 

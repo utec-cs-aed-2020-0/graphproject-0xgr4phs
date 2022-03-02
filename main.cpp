@@ -25,6 +25,7 @@ int main(int argc, char *argv[]) {
         cout<<"0: Astar\n1: Bellman-ford\n2: DFS\n3: Dijkstra\n4: Floyd-warshall\n5: GreedyBFS\n6: Kruskal\n7: Prim"<<endl;
         cout<<"Opcion: ";
         cin>>i;
+        tests[i]();
     }while(i>=0 && i<8);    
     cout<<"ADIOS"<<endl;
 
