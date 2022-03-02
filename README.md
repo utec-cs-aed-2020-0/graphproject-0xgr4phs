@@ -82,7 +82,7 @@ float density(); // Calculates the density of the graph
 
 float isDense(float threshold = 0.5); // Calculates density using threshold
 
-bool isDense(float threshold = 0.5) const; // Calculates the density of the graph, and determine if it is dense dependening on a threshold value
+bool isDense(float threshold = 0.5); // Calculates the density of the graph, and determine if it is dense dependening on a threshold value
 
 bool isConnected(); // Detect if the graph is connected (creado solo para grafos no dirigidos)
 
