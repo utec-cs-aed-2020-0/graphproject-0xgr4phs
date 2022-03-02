@@ -3,7 +3,7 @@
 
 #include "../DirectedGraph.h"
 #include "../UndirectedGraph.h"
-#include"data_estructures/ds.h"
+#include"../Algorithms/data_structures/ds.h"
 #include<utility>
 #include<vector>
 #include<algorithm>

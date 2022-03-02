@@ -18,6 +18,7 @@
 #include <iostream>
 #include <queue>
 #include <stdexcept>
+#include <string>
 
 /* Archivos importados */
 #include "../UndirectedGraph.h"
@@ -61,8 +62,14 @@ DirectedGraph<VertexType, EdgeType> greedyBFS(DirectedGraph<VertexType,EdgeType>
         auto* left = pq.top().second.first;
         auto* right = pq.top().second.second;
         pq.pop();
-        path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n";
+        /* path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n"; */
         output.insertVertex(right->id, right->data);
+	output.insertVertex(left->id, left->data);
+
+	output.createEdge(left->id, right->id,weight);        
+
+
+
         if (right == end_vertex) break;
 
         for (edge_t* &edge : right->edges) {
@@ -73,6 +80,7 @@ DirectedGraph<VertexType, EdgeType> greedyBFS(DirectedGraph<VertexType,EdgeType>
             }
         }
     }
+    cout<<path;
     return output;
 };
 
@@ -103,8 +111,12 @@ UnDirectedGraph<VertexType, EdgeType> greedyBFS(UnDirectedGraph<VertexType,EdgeT
         auto* left = pq.top().second.first;
         auto* right = pq.top().second.second;
         pq.pop();
-        path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n";
+        /* path += "(Left: " + std::to_string(left->data) + ", Weight: " + std::to_string(weight) + ", Right: " + std::to_string(right->data) + ")\n"; */
         output.insertVertex(right->id, right->data);
+	output.insertVertex(left->id, left->data);
+
+	output.createEdge(left->id, right->id,weight);        
+
         if (right == end_vertex) break;
 
         for (edge_t* &edge : right->edges) {
@@ -115,6 +127,7 @@ UnDirectedGraph<VertexType, EdgeType> greedyBFS(UnDirectedGraph<VertexType,EdgeT
             }
         }
     }
+    cout<<path;
     return output;
 };
 

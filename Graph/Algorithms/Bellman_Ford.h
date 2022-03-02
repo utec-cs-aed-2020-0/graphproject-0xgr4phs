@@ -50,7 +50,9 @@ DirectedGraph<TV, TE> bellman_ford( DirectedGraph<TV, TE> grafo, const string &n
                 }
             }
         }
+
     }
+
 
     for(auto entrada: distanciaPadre){
         retorno.createEdge(entrada.second.second,entrada.first, entrada.second.first.second);

@@ -1,9 +1,9 @@
 #ifndef GRAPHPROJECT_0XGR4PHS_DS_H
 #define GRAPHPROJECT_0XGR4PHS_DS_H
 
-#include "../UndirectedGraph.h"
-#include "../DirectedGraph.h"
-#include "../graph.h"
+#include "../../UndirectedGraph.h"
+#include "../../DirectedGraph.h"
+#include "../../Graph.h"
 #include <unordered_map>
 #include<utility>
 

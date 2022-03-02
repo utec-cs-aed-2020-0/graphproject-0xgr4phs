@@ -2,7 +2,7 @@
 #include <fstream>
 #include <math.h>
 #include "graph_json.h"
-#include "../Graph/Algorithms/Dijkstra.h"
+#include "../Graph/Algorithms/Bellman_Ford.h"
 
 
 using namespace std;
@@ -96,8 +96,9 @@ int main(){
   grafito_parser.dGraphMake(grafito);
 
 
+  bellman_ford(grafito,"94").display();
 
-  dijkstra(grafito, "2789").display();
+  /* dijkstra(grafito, "2789").display(); */
 
 
   cout<<endl<<"finished"<<endl;
