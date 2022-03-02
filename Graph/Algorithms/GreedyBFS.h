@@ -82,7 +82,6 @@ DirectedGraph<VertexType, EdgeType> greedyBFS(DirectedGraph<VertexType, EdgeType
             }
         }
     }
-    cout << path;
     return output;
 };
 
@@ -133,7 +132,6 @@ UnDirectedGraph<VertexType, EdgeType> greedyBFS(UnDirectedGraph<VertexType, Edge
             }
         }
     }
-    cout << path;
     return output;
 };
 
