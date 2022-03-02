@@ -114,6 +114,26 @@ UnDirectedGraph<TV, TE> dijkstra(UnDirectedGraph<TV, TE> &g, string start_node)
 
 En nuestra implementación, se retorna un grafo dirigido o no dirigido que es un arbol con las distancias minimas del nodo inicial a los demás. 
 
+#### Algorithmo Floyd-Warshall
+
+Utiliza dos matrices de distancias y padres. Tiene 3 bucles anidados. En el primero de elije un vértice y en los siguientes se recorre todas las combinaciones de vertices preguntando si la distancia de ir de A a B es menor utilizando el vertice elegido del primer bucle. 
+
+
+![](img/Floyd_warshall.gif)
+
+Este algoritmo funciona para grafos dirigidos y no dirigidos.
+
+Presenta una complejidad de $O(|V|³)$
+
+```cpp
+matrix_square_pair<TE> floyd_warshall(DirectedGraph<TV, TE> &g);
+
+matrix_square_pair<TE> floyd_warshall(UnDirectedGraph<TV, TE> &g);
+```
+
+En nuestra implementación, se retorna un par de matrices. La primera tiene los padres y la segunda las distancias.
+
+
 
 
 #### Algoritmo Belman-Ford 
