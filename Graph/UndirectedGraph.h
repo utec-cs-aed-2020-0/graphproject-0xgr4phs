@@ -28,8 +28,8 @@ class UnDirectedGraph;
 
 // Funciones auxiliares
 
-template<typename TV, typename TE>
-class UnDirectedGraph;
+template<typename VertexType, typename EdgeType>
+UnDirectedGraph<VertexType,EdgeType> greedyBFS(UnDirectedGraph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
 
 template<typename TV,typename TE>
 UnDirectedGraph<TV,TE> dijkstra(UnDirectedGraph<TV,TE> & , string);
@@ -51,9 +51,6 @@ class DisjointSetGrafoDirigido;
 class DisjointSetGrafoNoDirigido;
 template<typename TV, typename TE>
 UnDirectedGraph<TV, TE> prim(UnDirectedGraph<TV, TE> grafo, string inicio);
-
-template <typename VertexType,typename EdgeType>
-UnDirectedGraph<VertexType,EdgeType> greedyBFS(UnDirectedGraph<VertexType,EdgeType> *graph, std::string start_node, std::string end_node);
 
 template<typename TV, typename TE>
 class UnDirectedGraph : public Graph<TV, TE> {
@@ -90,8 +87,6 @@ public:
 
 private:
     /* Declaración de funciones amigas */
-   template <typename VertexType, typename EdgeType>
-     friend std::string greedyBFS(UnDirectedGraph<VertexType,EdgeType>* graph, std::string start_node, std::string end_node);
    template<typename T,typename E>
      friend UnDirectedGraph<T, E> dijkstra(UnDirectedGraph<T,E>&,string);
 
@@ -110,6 +105,8 @@ private:
    template<typename TVf,typename TEf>
      friend UnDirectedGraph<TVf, TEf> prim(UnDirectedGraph<TVf, TEf> grafo, string inicio);
 
+    template<typename VertexType, typename EdgeType>
+    friend UnDirectedGraph<VertexType,EdgeType> greedyBFS(UnDirectedGraph<VertexType, EdgeType> *graph, std::string start_node, std::string end_node);
 
 };
 
