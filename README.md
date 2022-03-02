@@ -26,17 +26,16 @@
 | Bracamento Otiniano, Eric| eric.bracamonte@utec.edu.pe   |
 
 ----
-El proyecto del curso consiste en implementar una estructura de datos de grafo y un file parser. La estructura debe soportar los métodos y algoritmos descritos a continuacion:  
+El proyecto del curso consiste en implementar una estructura de datos de grafo y un file parser. 
 
+### Tipos de grafo
 
-## Graph data structure
+- Dirigido
 
-* El grafo debe ser dinámico (inserciones. eliminaciones, búsquedas, ...)
-* Se debe implementar los dos tipos de grafos: dirigidos y no-dirigidos.
-* No considerar loops ni multi-arista. 
+- No dirigidos
 
+### Methodos:
 
-### Methods:
 ```cpp
 bool insertVertex(string id, V data); // Creates a new vertex in the graph with some data and an ID
 
@@ -52,9 +51,9 @@ float density() const; // Calculates the density of the graph
 
 bool isDense(float threshold = 0.5) const; // Calculates the density of the graph, and determine if it is dense dependening on a threshold value
 
-bool isConnected(); // Detect if the graph is connected
+bool isConnected(); // Detect if the graph is connected (creado solo para grafos no dirigidos)
 
-bool isStronglyConnected() throw(); // Detect if the graph is strongly connected (only for directed graphs)
+bool isStronglyConnected(); // Detect if the graph is strongly connected (creado solo para dirigidos)
 
 bool empty(); // If the graph is empty
 
