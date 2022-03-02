@@ -28,41 +28,11 @@
 ----
 El proyecto del curso consiste en implementar una estructura de datos de grafo y un file parser. 
 
-### Dirigido
+### Tipos de grafo
 
-Son grafos cuyas aristas indican hacia que sentido es posible travesar de un nodo a otro.
+- Dirigido
 
-```cpp
-template <typename TV, typename TE>
-class DirectedGraph;
-```
-
-#### No dirigido
-
-Son grafos cuyas aristas no especifican hacia que sentido es posible travesar de un nodo a otro.
-
-```cpp
-template <typename TV, typename TE>
-class DirectedGraph;
-```
-
-#### Implementación
-
-Para que nuestros algoritmos puedan acceder a todos los miembros de los grafos, fue necesario agregarlos como funciones amigas dentro de la clase y una declaración en el archivo de la clase.
-
-- **Declaración en archivo.h**
-
-```cpp
-template <typename TV, typename TE>
-DirectedGraph<TV, TE> dijkstra(DirectedGraph<TV, TE> &, string);
-```
-
-- **Declaración dentro de definición de clase**
-
-```cpp
-template <typename T, typename E>  
-friend DirectedGraph<T, E> dijkstra(DirectedGraph<T, E> &, string);
-```
+- No dirigidos
 
 ### Methodos:
 
@@ -91,6 +61,29 @@ void clear(); // Clears the graph
 ```
 
 ### Algorithms:
+
+#### Algoritmo Dijkstra
+Busca la distancia más corta de un vértice a todos los demas. Va agarrando el nodo con la distancia mínima del padre, lo visita y luego ve a sus vecinos. Si la distancia para ir a un vecino desde el nodo elegido es menor a la distancia actual, se cambia la distancia y se elije un nuevo padre.
+
+![](img/dj.gif)
+
+Este algoritmo funciona para grafos dirigidos y no dirigidos.
+
+Presenta una complejidad de $O(|E|+|V|\log|V|)$
+
+```cpp
+
+template <typename TV, typename TE>
+DirectedGraph<TV, TE> dijkstra(DirectedGraph<TV, TE> &g, string start_node);
+
+template <typename TV, typename TE>
+UnDirectedGraph<TV, TE> dijkstra(UnDirectedGraph<TV, TE> &g, string start_node)
+
+```
+
+En nuestra implementación, se retorna un grafo dirigido o no dirigido que es un arbol con las distancias minimas del nodo inicial a los demás. 
+
+
 
 #### Algoritmo Belman-Ford 
 Consta de un algoritmo con el objetivo de encontrar la ruta más corta entre un nodo y los restantes. Al igual que el algoritmo Dijkstra, se basa en la comparación de distancias y asignación de padres. La única diferencia es que la evaluación de aquello se realiza mediante la iteración de todas las aristas en el grafo por una cantidad $|V|-1$. Ya que no depende de la partida de vertices, es posible trabajar con grafos con pesos negativos. 
